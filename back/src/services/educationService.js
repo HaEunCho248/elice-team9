@@ -4,7 +4,6 @@ class educationService {
   static async addEducation({ user_id, school, major, position }) {
     
     const user = await Education.findAll({ user_id });
-   
     const id = user_id;
 
     if(user.length > 0) {
@@ -18,7 +17,7 @@ class educationService {
       }
     }
     
-    const newEducation = { user_id, school, major, position };
+    const newEducation = { id, school, major, position };
     const createdNewEducation = await Education.create({ newEducation });
     
     return createdNewEducation;

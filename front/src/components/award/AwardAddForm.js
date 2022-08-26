@@ -11,6 +11,7 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
     e.stopPropagation();
 
     const user_id = portfolioOwnerId;
+    console.log(user_id);
 
     await Api.post("award/create", {
       user_id: portfolioOwnerId,

@@ -11,12 +11,13 @@ educationRouter.post("/education/create", login_required, async function (req, r
       throw new Error(
         "headers의 Content-Type을 application/json으로 설정해주세요");
     }
-
+    console.log(req.body);
     // req (request) 에서 데이터 가져오기
     const user_id = req.body.user_id;
     const school = req.body.school;
     const major = req.body.major;
     const position = req.body.position;
+    console.log(user_id);
     
     // 위 데이터를 학력 db에 추가하기
     const newEducation = await educationService.addEducation({
