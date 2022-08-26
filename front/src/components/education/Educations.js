@@ -5,7 +5,7 @@ import Education from "./Education";
 import EducationAddForm from "./EducationAddForm";
 
 
-function Educations({ user_id, isEditable }) {
+function Educations({ portfolioOwnerId, isEditable }) {
   const test0825 = [{
                       school: "엘리스",
                       major: "AI5기",
@@ -18,8 +18,8 @@ function Educations({ user_id, isEditable }) {
 
   useEffect(() => {
     // "awardlist/유저id"로 GET 요청하고, response의 data로 awards를 세팅함.
-    Api.get("educationlist", user_id).then((res) => setEducations(res.data));
-  }, [user_id]);
+    Api.get("educationlist", portfolioOwnerId).then((res) => setEducations(res.data));
+  }, [portfolioOwnerId]);
 
   return (
     <Card>
@@ -27,7 +27,7 @@ function Educations({ user_id, isEditable }) {
         <Card.Title>학력</Card.Title>
         {educations.map((education) => (
           <Education
-            key={education.user_id}
+            key={education.id}
             education={education}
             setEducations={setEducations}
             isEditable={isEditable}
@@ -42,7 +42,7 @@ function Educations({ user_id, isEditable }) {
         )}
         {isAdding && (
           <EducationAddForm
-            portfoiloOwnerId={user_id}
+            portfoiloOwnerId={portfolioOwnerId}
             setEducations={setEducations}
             setIsAdding={setIsAdding}
           />
