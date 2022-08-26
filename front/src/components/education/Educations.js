@@ -42,7 +42,7 @@ function Educations({ portfolioOwnerId, isEditable }) {
         )}
         {isAdding && (
           <EducationAddForm
-            portfoiloOwnerId={portfolioOwnerId}
+            portfolioOwnerId={portfolioOwnerId}
             setEducations={setEducations}
             setIsAdding={setIsAdding}
           />
