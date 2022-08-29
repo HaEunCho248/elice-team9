@@ -1,11 +1,11 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
-import { awardAuthService } from "../services/awardService";
+import { awardService } from "../services/awardService";
 
-const awardAuthRouter = Router();
-
-awardAuthRouter.post('/award/create', login_required, async function(req, res, next) {
+const awardRouter = Router();
+// award 등록
+awardRouter.post('/award/create', login_required, async function(req, res, next) {
     try {
         if(is.emptyObject(req.body)) {
             throw new Error("headers의 Content-Type을 application/json으로 설정해주세요");
@@ -14,7 +14,7 @@ awardAuthRouter.post('/award/create', login_required, async function(req, res, n
         const user_id = req.body.user_id;
         const title = req.body.title;
         const description = req.body.description;
-        const newAward = await awardAuthService.addAward({
+        const newAward = await awardService.addAward({
             user_id,
             title,
             description,
@@ -30,13 +30,14 @@ awardAuthRouter.post('/award/create', login_required, async function(req, res, n
     }
 });
 
-awardAuthRouter.get(
-    "/awardlist/:id",
+// award 리스트 가져오기
+awardRouter.get(
+    "/awardlist/:user_id",
     login_required,
     async function (req, res, next) {
       try {
-        const user_id = req.params.id;
-        const currentAwardInfo = await awardAuthService.getAwards({ user_id });
+        const user_id = req.params.user_id;
+        const currentAwardInfo = await awardService.getAwards({ user_id });
         if(currentAwardInfo) {
             if (currentAwardInfo.errorMessage) {
                 throw new Error(currentAwardInfo.errorMessage);
@@ -51,23 +52,14 @@ awardAuthRouter.get(
     }
   );
 
-  awardAuthRouter.put('/awards/:id', login_required, async function(req, res, next) {
+// award 편집
+awardRouter.put('/awards/:object_id', login_required, async function(req, res, next) {
     try {
-        const user_id = req.params.id;
-        const titleHidden = req.body.titleHidden ?? null;
+        const object_id = req.params.object_id;
         const title = req.body.title ?? null;
         const description = req.body.description ?? null;
         const toUpdate = { title, description };
-
-        const user = await awardAuthService.getAwards({ user_id });
-        const _id = user.map(user => {
-            if(user.title === titleHidden) {
-                return user._id;
-            }
-        })
-
-        const updatedAward = await awardAuthService.setAward({ _id, toUpdate });
-        
+        const updatedAward = await awardService.setAward({ object_id, toUpdate });
         if(updatedAward.errorMessage) {
             throw new Error(updatedAward.errorMessage);
         }
@@ -77,10 +69,13 @@ awardAuthRouter.get(
     }
 });
 
-awardAuthRouter.post('/award/delete/:id', login_required, async function(req, res, next) {
+// award 삭제
+awardRouter.post('/award/delete', login_required, async function(req, res, next) {
     try {
-        const _id = req.params.id;
-        const deleteAward = await awardAuthService.delAward({ _id });
+        const object_id = req.body.object_id;
+        
+        const deleteAward = await awardService.delAward({ object_id });
+        
         if (deleteAward.errorMessage) {
             throw new Error(deleteAward.errorMessage);
         }
@@ -90,4 +85,4 @@ awardAuthRouter.post('/award/delete/:id', login_required, async function(req, re
     }
 });
 
-export { awardAuthRouter };
+export { awardRouter };

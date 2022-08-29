@@ -16,7 +16,7 @@ function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
 
     const id = currentAward.id;
     
-    await Api.put(`awards/${currentAward.id}`, {
+    await Api.put(`awards/${objectId}`, {
       id,
       objectId,
       title,
