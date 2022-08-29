@@ -21,7 +21,7 @@ const ProjectSchema = new Schema(
         },
         endDate: {
             type: String,
-            required: true,
+            required: false,
         },
     },
     {
