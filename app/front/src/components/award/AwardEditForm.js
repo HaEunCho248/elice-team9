@@ -3,20 +3,22 @@ import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
 function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
-  const [titleHidden, setTitleHidden] = useState(currentAward.title);
+
   const [title, setTitle] = useState(currentAward.title);
   const [description, setDescription] = useState(currentAward.description);
+
+  const objectId = currentAward._id
+  // currentAward._id 는 mongoDB ObjectId 로 보임
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     const id = currentAward.id;
-    console.log(currentAward._id)
-
+    
     await Api.put(`awards/${currentAward.id}`, {
       id,
-      titleHidden,
+      objectId,
       title,
       description,
     });
@@ -28,12 +30,10 @@ function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formBasicTitle2">
+      <Form.Group controlId="formBasicObjectId">
         <Form.Control
           type="hidden"
-          placeholder="수상내역"
-          value={title}
-          onChange={(e) => setTitleHidden(e.target.value)}
+          value={objectId}
         />
       </Form.Group>
       <Form.Group controlId="formBasicTitle">
