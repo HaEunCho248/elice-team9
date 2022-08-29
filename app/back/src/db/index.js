@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { User } from "./models/User";
 import { Award } from "./models/Award";
 import { Education } from "./models/Education";
-// import { Project } from "./models/Project";
+import { Project } from "./models/Project";
 // import { Certificate } from "./models/Certificate";
 
 const DB_URL =
@@ -21,4 +21,4 @@ db.on("error", (error) =>
 );
 
 // export { User, Education, Award, Project, Certificate};
-export { User,  Award, Education };
+export { User,  Award, Education, Project };
