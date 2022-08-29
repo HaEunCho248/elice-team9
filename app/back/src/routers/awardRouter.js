@@ -51,7 +51,7 @@ awardAuthRouter.get(
     }
   );
 
-awardAuthRouter.put('/awards/:id', login_required, async function(req, res, next) {
+  awardAuthRouter.put('/awards/:id', login_required, async function(req, res, next) {
     try {
         const user_id = req.params.id;
         const titleHidden = req.body.titleHidden ?? null;
