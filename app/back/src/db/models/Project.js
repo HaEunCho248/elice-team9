@@ -17,8 +17,8 @@ class Project {
             userId: Project.userId,
             title: Project.title,
             description: Project.description,
-            startDate: Project.startDate,
-            endDate: Project.endDate
+            startDate: Project.startDate.substr(0, 10),
+            endDate: Project.endDate.substr(0, 10)
         }
     }
 
@@ -32,17 +32,17 @@ class Project {
                 userId: data.userId,
                 title: data.title,
                 description: data.description,
-                startDate: data.startDate,
-                endDate: data.endDate
+                startDate: data.startDate.substr(0, 10),
+                endDate: data.endDate.substr(0, 10)
             }
         });
         return project_list;
     }
 
     // 특정 프로젝트 편집
-    static async update({  objectId, filedToUpdate, newValue }) {
+    static async update({  objectId, fieldToUpdate, newValue }) {
         const filter = { _id: objectId }
-        const update = { [filedToUpdate]: newValue } ;
+        const update = { [fieldToUpdate]: newValue } ;
         const option = { returnOriginal: false };
         const updateProject = await ProjectModel.findOneAndUpdate(
             filter,

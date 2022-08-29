@@ -6,24 +6,27 @@ import { projectService } from "../services/projectService";
 const projectRouter = Router();
 
 // 프로젝트 등록
-projectRouter.post("/project/create", (req, res, next) => {
+projectRouter.post("/project/create", async (req, res, next) => {
     try {
-        console.log(req.body);
+        
         if(is.emptyObject(req.body)) {
             throw new Error("header의 Content-Tpye을 application/json으로 설정해주세요");
         }
-
+        
         const userId = req.body.userId;
         const title = req.body.title;
         const description = req.body.description;
         const startDate = req.body.startDate;
         const endDate = req.body.endDate;
-        const newProject = await projectService.addProject({
-            userId,
+        const projectData = {
             title,
             description,
             startDate,
             endDate
+        }
+        const newProject = await projectService.addProject({
+            userId,
+            projectData
         });
 
         if(newProject.errorMessage) {
@@ -36,7 +39,7 @@ projectRouter.post("/project/create", (req, res, next) => {
 });
 
 // 프로젝트 목록 가져오기
-projectRouter.get("/projectlist/:userId", login_required, (req, res) => {
+projectRouter.get("/projectlist/:userId", login_required, async (req, res, next) => {
     try {
             const userId = req.params.userId;
             const currentProjectInfo = await projectService.getProjects({ userId });
@@ -51,13 +54,13 @@ projectRouter.get("/projectlist/:userId", login_required, (req, res) => {
 })
 
 // 특정 프로젝트 편집
-projectRouter.put("/project/update/:objectId", login_required, (req, res) => {
+projectRouter.put("/projects/:objectId", login_required, async (req, res, next) => {
     try {
         const objectId = req.params.objectId;
         const title = req.body.title ?? null;
         const description = req.body.description ?? null;
-        const startDate = req.body.startDate && null;
-        const endDate = req.body.endDate && null;
+        const startDate = req.body.startDate ?? null;
+        const endDate = req.body.endDate ?? null;
         const toUpdate = { title, description, startDate, endDate };
 
         const updateProject = await projectService.setProject({ objectId, toUpdate });
@@ -73,7 +76,7 @@ projectRouter.put("/project/update/:objectId", login_required, (req, res) => {
 })
 
 // 특정 프로젝트 삭제
-projectRouter.post("/project/delete", login_required, (req, res) => {
+projectRouter.post("/project/delete", login_required, async (req, res, next) => {
     try {
         const objectId = req.body.objectId;
         const deleteProject = await projectService.delProject({ objectId });
