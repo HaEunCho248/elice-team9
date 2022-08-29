@@ -3,6 +3,7 @@ import express from "express";
 import { userAuthRouter } from "./routers/userRouter";
 import { awardAuthRouter } from "./routers/awardRouter";
 import { educationRouter } from "./routers/educationRouter";
+import { projectRouter } from "./routers/projectRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/', userAuthRouter);
 app.use('/', awardAuthRouter);
 app.use('/', educationRouter);
+app.use('/', projectRouter);
 
 
 // 기본 페이지

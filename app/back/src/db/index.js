@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { User } from "./models/User";
 import { Award } from "./models/Award";
 import { Education } from "./models/Education";
-// import { Project } from "./models/Project";
+import { Project } from "./models/Project";
 // import { Certificate } from "./models/Certificate";
 
 const DB_URL =
@@ -20,5 +20,4 @@ db.on("error", (error) =>
   console.error("MongoDB 연결에 실패하였습니다...\n" + DB_URL + "\n" + error)
 );
 
-// export { User, Education, Award, Project, Certificate};
-export { User,  Award, Education };
+export { User,  Award, Education, Project };
