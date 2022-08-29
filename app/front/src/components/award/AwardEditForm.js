@@ -2,38 +2,34 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
-  const [titleHidden, setTitleHidden] = useState(currentAward.title);
+function AwardEditForm({ portfolioOwnerId, currentAward, setAwards, setIsEditing }) {
+
   const [title, setTitle] = useState(currentAward.title);
   const [description, setDescription] = useState(currentAward.description);
+
+  const object_id = currentAward.object_id
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-
-    const id = currentAward.id;
-    console.log(currentAward._id)
-
-    await Api.put(`awards/${currentAward.id}`, {
-      id,
-      titleHidden,
+    
+    await Api.put(`awards/${currentAward.object_id}`, {
+      object_id,
       title,
       description,
     });
 
-    const res = await Api.get("awardlist", id);
+    const res = await Api.get("awardlist", portfolioOwnerId);
     setAwards(res.data);
     setIsEditing(false);
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formBasicTitle2">
+      <Form.Group controlId="formBasicObjectId">
         <Form.Control
           type="hidden"
-          placeholder="수상내역"
-          value={title}
-          onChange={(e) => setTitleHidden(e.target.value)}
+          value={object_id}
         />
       </Form.Group>
       <Form.Group controlId="formBasicTitle">
