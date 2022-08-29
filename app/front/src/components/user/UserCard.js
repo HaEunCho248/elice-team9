@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+ import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {

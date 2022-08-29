@@ -8,7 +8,7 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
   const [title, setTitle] = useState(currentCertificate.title);
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState(currentCertificate.description);
-  //Data
+  //useState로 acquisitionDate 상태를 생성함.
   const [acquisitionDate, setAcquisitionDate] = useState(new Date());
 
   const handleSubmit = async (e) => {
@@ -23,6 +23,7 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
       user_id,
       title,
       description,
+      acquisitionDate,
     });
 
     // "Certificatelist/유저id" 엔드포인트로 GET 요청함.

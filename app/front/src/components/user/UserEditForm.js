@@ -10,6 +10,8 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState(user.description);
 
+  //user profile 이미지 업로드 
+  //useState로 image 상태를 생성함/ 초기값으로 랜덤 고양이 사진(http://placekitten.com API 사용)을 설정함
   const handleSubmit = async (e) => {
     e.preventDefault();
 

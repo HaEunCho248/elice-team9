@@ -18,8 +18,9 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
     const user_id = portfolioOwnerId;
 
     // "certificate/create" 엔드포인트로 post요청함.
+    //0829 user_id: portfolioOwnerId를 user_id: user_id로 수정
     await Api.post("certificate/create", {
-      user_id: portfolioOwnerId,
+      user_id: user_id,
       title,
       description,
       acquisitionDate,
