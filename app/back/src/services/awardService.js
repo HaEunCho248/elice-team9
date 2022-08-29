@@ -1,14 +1,14 @@
 import { Award } from "../db";
 
-class awardAuthService {
+class awardService {
+    // award 등록
     static async addAward({ user_id, title, description }) {
-        const user = await Award.findAll({ user_id });
-        const id = user_id;
+        const users = await Award.findAll({ user_id });
         
-        if(user.length > 0) {
-            const errorMessage = user.map(user => {
+        if(users.length > 0) {
+            const errorMessage = users.map(user => {
                 if(user.title === title) {
-                    return "같은 이름의 수상내역이 있습니다."
+                    return "같은 이름의 수상내역이 있습니다.";
                 }
             });
             if(errorMessage[0] != undefined) {
@@ -16,45 +16,50 @@ class awardAuthService {
             }
         }
         
-        const newAward = { id, title, description };
+        const newAward = { user_id, title, description };
         const createNewAward = await Award.create({ newAward });
+        
         return createNewAward;
     }
 
-    static async getAward({ user_id }) {
-        const user = await Award.findById({ user_id });
+    // 특정 award 가져오기
+    static async getAward({ object_id }) {
+        const user = await Award.findById({ object_id });
 
         return user;
     }
 
+    // award 리스트 가져오기
     static async getAwards({ user_id }) {
-        const user = await Award.findAll({ user_id });
+        const users = await Award.findAll({ user_id });
 
-        return user;
+        return users;
     }
 
-    static async setAward({ _id, toUpdate }) {
+    // award 편집
+    static async setAward({ object_id, toUpdate }) {
         let award = null;
 
         if(toUpdate.title) {
             const fieldToUpdate = "title";
             const newValue = toUpdate.title;
-            award = await Award.update({ _id, fieldToUpdate, newValue });
+            award = await Award.update({ object_id, fieldToUpdate, newValue });
         }
         if(toUpdate.description) {
             const fieldToUpdate = "description";
             const newValue = toUpdate.description;
-            award = await Award.update({ _id, fieldToUpdate, newValue });
+            award = await Award.update({ object_id, fieldToUpdate, newValue });
         }
         
         return award;
     }
     
-    static async delAward({ _id }) {
-        const user = await Award.delete({ _id });
+    // award 삭제
+    static async delAward({ object_id }) {
+        const deleteAward = await Award.delete({ object_id });
 
-        return user;
+        return deleteAward;
     }
 }
 
-export { awardAuthService };
+export { awardService };

@@ -1,7 +1,7 @@
 import cors from "cors";
 import express from "express";
 import { userAuthRouter } from "./routers/userRouter";
-import { awardAuthRouter } from "./routers/awardRouter";
+import { awardRouter } from "./routers/awardRouter";
 import { educationRouter } from "./routers/educationRouter";
 import { projectRouter } from "./routers/projectRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // router, service 구현 (userAuthRouter는 맨 위에 있어야 함.)
 app.use('/', userAuthRouter);
-app.use('/', awardAuthRouter);
+app.use('/', awardRouter);
 app.use('/', educationRouter);
 app.use('/', projectRouter);
 

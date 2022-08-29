@@ -5,24 +5,39 @@ class Award {
     static async create({ newAward }) {
         const createNewAward = await AwardModel.create(newAward);
         
-        return createNewAward;
+        return "createAwardSuccess";
     }
 
-    // Award 데이터 가져오기
+    // 특정 Award 데이터 가져오기
     static async findById({ user_id }) {
-        const Award = await AwardModel.findOne({id: user_id});
-        return Award;
+        const Award = await AwardModel.findOne({user_id: user_id});
+
+        return {
+            object_id: Award._id,
+            user_id: Award.user_id,
+            title: Award.title,
+            description: Award.description
+        };
     }
 
-    //Award 해당 데이터 전부 가져오기
+    // Award 데이터 전부 가져오기
     static async findAll({ user_id }) {
-        const Award = await AwardModel.find({id: user_id},);
-        return Award;
+        const Awards = await AwardModel.find({user_id: user_id},);
+        const award_list = Awards.map((data) => {
+            return {
+                object_id: data._id,
+                user_id: data.user_id,
+                title: data.title,
+                description: data.description
+            };
+        });
+        
+        return award_list;
     }
 
     // Award 데이터 업데이트
-    static async update({ _id, fieldToUpdate, newValue }){
-        const filter = { _id: _id };
+    static async update({ object_id, fieldToUpdate, newValue }){
+        const filter = { _id: object_id };
         const update = { [fieldToUpdate]: newValue };
         const option = { returnOriginal: false };
         const updatedAward = await AwardModel.findOneAndUpdate(
@@ -30,15 +45,16 @@ class Award {
             update,
             option
         );
-
-        return updatedAward;
+        
+        return "updateAwardSuccess";
     }
 
     // Award 데이터 삭제
-    static async delete({ _id }) {
-        const filter = { _id: _id };
-        const Award = await AwardModel.remove({ filter });
-        return Award;
+    static async delete({ object_id }) {
+        const filter = { _id: object_id };
+        const Award = await AwardModel.deleteOne(filter);
+
+        return "deleteAwardSuccess";
     }
 }
 
