@@ -18,6 +18,7 @@ function Education({ education, setEducations, isEditable }) {
           education={education}
           isEditable={isEditable}
           setIsEditing={setIsEditing}
+          setEducations = {setEducations}   // 삭제 기능 구현
         />
       )}
     </>
