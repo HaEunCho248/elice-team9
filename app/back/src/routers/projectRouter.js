@@ -11,7 +11,6 @@ projectRouter.post("/project", async (req, res, next) => {
         if(is.emptyObject(req.body)) {
             throw new Error("header의 Content-Tpye을 application/json으로 설정해주세요");
         }
-
         const user_id = req.body.user_id;
         const title = req.body.title;
         const description = req.body.description;
