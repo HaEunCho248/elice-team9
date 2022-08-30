@@ -12,7 +12,7 @@ function AwardCard({ award, isEditable, setIsEditing }) {
     e.preventDefault();
     e.stopPropagation();
     
-    Api.post(`award/delete/${award.id}`, {
+    Api.delete(`awards/${award.id}`, {
       title
     });
   };

@@ -13,13 +13,13 @@ function AwardEditForm({ portfolioOwnerId, currentAward, setAwards, setIsEditing
     e.preventDefault();
     e.stopPropagation();
     
-    await Api.put(`awards/${currentAward.object_id}`, {
+    await Api.put(`award/${currentAward.object_id}`, {
       object_id,
       title,
       description,
     });
 
-    const res = await Api.get("awardlist", portfolioOwnerId);
+    const res = await Api.get("awards", portfolioOwnerId);
     setAwards(res.data);
     setIsEditing(false);
   };
