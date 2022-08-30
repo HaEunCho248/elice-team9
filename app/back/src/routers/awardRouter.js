@@ -76,16 +76,10 @@ awardRouter.put('/awards/:object_id', login_required, async function(req, res, n
 });
 
 // award 삭제
-<<<<<<< HEAD
-awardRouter.post('/award/delete', login_required, async function(req, res, next) {
-    try {
-        const object_id = req.body.object_id;
-=======
+
 awardRouter.delete('/awards/:object_id', login_required, async function(req, res, next) {
     try {
-        const object_id = req.params.object_id;
->>>>>>> origin/feature/back-award
-        
+        const object_id = req.params.object_id;    
         const deleteAward = await awardService.delAward({ object_id });
         
         if (deleteAward.errorMessage) {
