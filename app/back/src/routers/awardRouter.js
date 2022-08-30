@@ -5,12 +5,16 @@ import { awardService } from "../services/awardService";
 
 const awardRouter = Router();
 // award 등록
+<<<<<<< HEAD
 awardRouter.post('/award/create', login_required, async function(req, res, next) {
+=======
+awardRouter.post('/awards', login_required, async function(req, res, next) {
+>>>>>>> origin/feature/back-award
     try {
         if(is.emptyObject(req.body)) {
             throw new Error("headers의 Content-Type을 application/json으로 설정해주세요");
         }
-            
+
         const user_id = req.body.user_id;
         const title = req.body.title;
         const description = req.body.description;
@@ -32,7 +36,11 @@ awardRouter.post('/award/create', login_required, async function(req, res, next)
 
 // award 리스트 가져오기
 awardRouter.get(
+<<<<<<< HEAD
     "/awardlist/:user_id",
+=======
+    "/awards/:user_id",
+>>>>>>> origin/feature/back-award
     login_required,
     async function (req, res, next) {
       try {
@@ -44,8 +52,6 @@ awardRouter.get(
             }
             res.status(200).send(currentAwardInfo);  
         }
-        
-
       } catch (error) {
         next(error);
       }
@@ -70,9 +76,15 @@ awardRouter.put('/awards/:object_id', login_required, async function(req, res, n
 });
 
 // award 삭제
+<<<<<<< HEAD
 awardRouter.post('/award/delete', login_required, async function(req, res, next) {
     try {
         const object_id = req.body.object_id;
+=======
+awardRouter.delete('/awards/:object_id', login_required, async function(req, res, next) {
+    try {
+        const object_id = req.params.object_id;
+>>>>>>> origin/feature/back-award
         
         const deleteAward = await awardService.delAward({ object_id });
         
