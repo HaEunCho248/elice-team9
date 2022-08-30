@@ -68,10 +68,10 @@ awardRouter.put('/awards/:object_id', login_required, async function(req, res, n
 });
 
 // award 삭제
-
 awardRouter.delete('/awards/:object_id', login_required, async function(req, res, next) {
     try {
-        const object_id = req.params.object_id;    
+        const object_id = req.params.object_id;
+        
         const deleteAward = await awardService.delAward({ object_id });
         
         if (deleteAward.errorMessage) {
