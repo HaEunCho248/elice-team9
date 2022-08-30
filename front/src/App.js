@@ -10,10 +10,6 @@ import Network from "./components/user/Network";
 import RegisterForm from "./components/user/RegisterForm";
 import Portfolio from "./components/Portfolio";
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a88340f01b38224b7ab79170fec9ca27d1a7f2c4
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
 

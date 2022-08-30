@@ -8,6 +8,7 @@ class Award {
         return "createAwardSuccess";
     }
 
+    
     // 특정 Award 데이터 가져오기
     static async findById({ user_id }) {
         const Award = await AwardModel.findOne({user_id: user_id});
