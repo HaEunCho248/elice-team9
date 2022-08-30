@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
 
-const AwardSchema = new Schema(
+const CertificateSchema = new Schema(
   {
-    id: {
+    user_id: {
       type: String,
       required: true,
     },
@@ -12,8 +12,11 @@ const AwardSchema = new Schema(
     },
     description: {
       type: String,
-      required: false,
-      default: "",
+      required: true,
+    },
+    acquisition_date: {
+      type: String,
+      required: true,
     },
   },
   {
@@ -21,6 +24,6 @@ const AwardSchema = new Schema(
   }
 );
 
-const AwardModel = model("Award", AwardSchema);
+const CertificateModel = model("Certificate", CertificateSchema);
 
-export { AwardModel };
+export { CertificateModel };
