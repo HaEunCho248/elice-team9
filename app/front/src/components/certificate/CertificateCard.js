@@ -1,7 +1,8 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
-
-function CertificateCard({ certificate, isEditable, setIsEditing }) {
-
+import * as Api from "../../api";
+function CertificateCard({ certificate, isEditable, setIsEditing, setCertificates }) {
+  // let when_date = certificate.acquisition_date;
+  // const acquisition_dateM = when_date.toLocaleDateString("en-US");
   return (
     <Card.Text>
       <Row className="align-items-center">
@@ -9,6 +10,7 @@ function CertificateCard({ certificate, isEditable, setIsEditing }) {
           <span>{certificate.title}</span>
           <br />
           <span className="text-muted">{certificate.description}</span>
+          <br />
           <span>{certificate.acquisitionDate}</span>
           <br />
         </Col>
@@ -22,19 +24,25 @@ function CertificateCard({ certificate, isEditable, setIsEditing }) {
             >
               편집
             </Button>
-            {/* <Button
+
+            <Button
               variant="outline-info"
               size="sm"
-              onClick={()=>{async(e) => {
+              onClick={async(e) => {
                 e.preventDefault();
                 e.stopPropagation();
             
-                const user_id = education.user_id;
-            
-                await Api.delete('educations', user_id);}}};
-            />
-              삭제
-            </Button> */}
+                const user_id = certificate.user_id;
+                const object_id = certificate.object_id;
+                await Api.delete('certificates', object_id)
+                const res = await Api.get("certificates", user_id);
+                setCertificates(res.data);
+                setIsEditing(false);
+              }}
+              className = "mr-3"
+            >
+            삭제
+            </Button>
           </Col>
         )}
       </Row>

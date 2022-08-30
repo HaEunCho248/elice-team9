@@ -8,6 +8,7 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
   const [title, setTitle] = useState("");
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState("");
+  //useState로 acquisitionDate 상태를 생성함. 초기값은 현재날짜로 설정
   const [acquisitionDate, setAcquisitionDate] = useState(new Date());
 
   const handleSubmit = async (e) => {
@@ -19,7 +20,7 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
 
     // "certificate/create" 엔드포인트로 post요청함.
     //0829 user_id: portfolioOwnerId를 user_id: user_id로 수정
-    await Api.post("certificate/create", {
+    await Api.post("certificate", {
       user_id: user_id,
       title,
       description,
@@ -27,7 +28,7 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
     });
 
     // "Certificatelist/유저id" 엔드포인트로 get요청함.
-    const res = await Api.get("certificatelist", user_id);
+    const res = await Api.get("certificates", user_id);
     // certificates를 response의 data로 세팅함.
     setCertificates(res.data);
     // certificate를 추가하는 과정이 끝났으므로, isAdding을 false로 세팅함.

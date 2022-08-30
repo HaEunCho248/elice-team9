@@ -15,19 +15,21 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
     e.preventDefault();
     e.stopPropagation();
 
-    // currentCertificate의 user_id를 user_id 변수에 할당함.
+
     const user_id = currentCertificate.user_id;
+    //각각의 certificate의 object_id를 할당받음.
+    const object_id = currentCertificate.object_id; 
 
     // "Certificates/수상 id" 엔드포인트로 PUT 요청함.
-    await Api.put(`certificates/${currentCertificate.id}`, {
-      user_id,
+    await Api.put(`certificate/${currentCertificate.object_id}`, {
+      object_id,
       title,
       description,
       acquisitionDate,
     });
 
-    // "Certificatelist/유저id" 엔드포인트로 GET 요청함.
-    const res = await Api.get("certificatelist", user_id);
+    // "Certificatelist/portfolioOwnerId" 엔드포인트로 GET 요청함.
+    const res = await Api.get("certificates", user_id);
     // Certificates를 response의 data로 세팅함.
     setCertificates(res.data);
     // 편집 과정이 끝났으므로, isEditing을 false로 세팅함.
@@ -36,6 +38,7 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
 
   return (
     <Form onSubmit={handleSubmit}>
+      
       <Form.Group controlId="formBasicTitle">
         <Form.Control
           type="text"

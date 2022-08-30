@@ -4,6 +4,7 @@ import { userAuthRouter } from "./routers/userRouter";
 import { awardRouter } from "./routers/awardRouter";
 import { educationRouter } from "./routers/educationRouter";
 import { projectRouter } from "./routers/projectRouter";
+import { certificateRouter } from "./routers/certificateRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 
 const app = express();
@@ -23,6 +24,7 @@ app.use('/', userAuthRouter);
 app.use('/', awardRouter);
 app.use('/', educationRouter);
 app.use('/', projectRouter);
+app.use('/', certificateRouter);
 
 
 // 기본 페이지
