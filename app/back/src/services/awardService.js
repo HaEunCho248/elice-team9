@@ -50,7 +50,7 @@ class awardService {
             const newValue = toUpdate.description;
             award = await Award.update({ object_id, fieldToUpdate, newValue });
         }
-        
+
         return award;
     }
     

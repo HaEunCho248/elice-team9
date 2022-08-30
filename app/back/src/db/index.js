@@ -3,7 +3,6 @@ import { User } from "./models/User";
 import { Award } from "./models/Award";
 import { Education } from "./models/Education";
 import { Project } from "./models/Project";
-// import { Certificate } from "./models/Certificate";
 
 const DB_URL =
   process.env.MONGODB_URL ||
