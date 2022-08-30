@@ -38,7 +38,7 @@ projectRouter.post("/project", async (req, res, next) => {
 });
 
 // 프로젝트 목록 가져오기
-projectRouter.get("/project/:user_id", login_required, async (req, res, next) => {
+projectRouter.get("/projects/:user_id", login_required, async (req, res, next) => {
     try {
             const user_id = req.params.user_id;
             const currentProjectInfo = await projectService.getProjects({ user_id });
