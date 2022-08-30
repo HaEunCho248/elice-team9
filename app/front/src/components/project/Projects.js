@@ -5,7 +5,6 @@ import Project from "./Project";
 import ProjectAddForm from "./ProjectAddForm";
 
 function Projects({ portfolioOwnerId, isEditable }) {
-  
   const test0825 = [{
                       user_id: "userP1",
                       title: "프젝1",
