@@ -9,8 +9,7 @@ awardRouter.post('/award', login_required, async function(req, res, next) {
     try {
         if(is.emptyObject(req.body)) {
             throw new Error("headers의 Content-Type을 application/json으로 설정해주세요");
-        }
-
+        }   
         const user_id = req.body.user_id;
         const title = req.body.title;
         const description = req.body.description;

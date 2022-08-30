@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 
 function ProjectEditForm({currentProject, setProjects, setIsEditing }) {
   // console.log(currentProject); //디버깅 코드 :ObjectId,_id, userid title, description, start, end (user_id없음)
-  //useState로 title 상태를 생성함.
+  // useState로 title 상태를 생성함.
   const [title, setTitle] = useState(currentProject.title);
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState(currentProject.description);
@@ -19,7 +19,7 @@ function ProjectEditForm({currentProject, setProjects, setIsEditing }) {
     // currentProject의 user_id를 user_id 변수에 할당함.
     const object_id = currentProject.object_id;
     const user_id = currentProject.user_id;
-    console.log(object_id);
+    // console.log(object_id);
     // console.log(currentProject._id);
 
     // "projects/수상 id" 엔드포인트로 PUT 요청함.
@@ -32,12 +32,13 @@ function ProjectEditForm({currentProject, setProjects, setIsEditing }) {
     });
 
     // "projectlist/유저id" 엔드포인트로 GET 요청함.
-    const res = await Api.get("projectlist", user_id);
+    const res = await Api.get("projects", user_id);
     // projects를 response의 data로 세팅함.
     setProjects(res.data);
     // 편집 과정이 끝났으므로, isEditing을 false로 세팅함.
     setIsEditing(false);
   };
+
 
   return (
     <Form onSubmit={handleSubmit}>
