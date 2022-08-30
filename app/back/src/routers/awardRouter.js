@@ -14,10 +14,12 @@ awardRouter.post('/award', login_required, async function(req, res, next) {
         const user_id = req.body.user_id;
         const title = req.body.title;
         const description = req.body.description;
+        const changedAwardedDate = req.body.changedAwardedDate;
         const newAward = await awardService.addAward({
             user_id,
             title,
             description,
+            changedAwardedDate,
         });
 
         if (newAward.errorMessage) {
@@ -56,7 +58,8 @@ awardRouter.put('/award/:object_id', login_required, async function(req, res, ne
         const object_id = req.params.object_id;
         const title = req.body.title ?? null;
         const description = req.body.description ?? null;
-        const toUpdate = { title, description };
+        const changedAwardedDate = req.body.changedAwardedDate;
+        const toUpdate = { title, description, changedAwardedDate };
         const updatedAward = await awardService.setAward({ object_id, toUpdate });
         if(updatedAward.errorMessage) {
             throw new Error(updatedAward.errorMessage);

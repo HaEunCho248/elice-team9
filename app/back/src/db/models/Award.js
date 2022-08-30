@@ -28,7 +28,8 @@ class Award {
                 object_id: data._id,
                 user_id: data.user_id,
                 title: data.title,
-                description: data.description
+                description: data.description,
+                changedAwardedDate: data.changedAwardedDate
             };
         });
         

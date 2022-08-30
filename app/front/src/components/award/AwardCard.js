@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
 
 function AwardCard({ award, isEditable, setIsEditing, setAwards }) {
-
-
   // 계정이 확인 되면 편집창과 삭제
   return (
     <Card.Text>
@@ -13,6 +11,8 @@ function AwardCard({ award, isEditable, setIsEditing, setAwards }) {
           <span>{award.title}</span>
           <br />
           <span className="text-muted">{award.description}</span>
+          <br />
+          <span className="text-muted">{award.changedAwardedDate}</span>
         </Col>
         {isEditable && (
           <Col xs lg="1">
