@@ -4,6 +4,8 @@ import AwardEditForm from "./AwardEditForm";
 
 function Award({ portfolioOwnerId, award, setAwards, isEditable }) {
   const [isEditing, setIsEditing] = useState(false);
+  // console.log(`award 콘솔:`, award);
+  // console.log(`portfolioOwnerId 콘솔:`, portfolioOwnerId);
   return (
     <>
       {isEditing ? (
