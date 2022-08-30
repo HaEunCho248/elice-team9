@@ -5,22 +5,16 @@ import Project from "./Project";
 import ProjectAddForm from "./ProjectAddForm";
 
 function Projects({ portfolioOwnerId, isEditable }) {
-  const test0825 = [{
-                      user_id: "userP1",
-                      title: "프젝1",
-                      description: "화이팅 할 수 있다",
-                      startDate: "8/22",
-                      endDate: "진행중"
-                    }]
+  
   //useState로 projects 상태를 생성함.
-  const [projects, setProjects] = useState(test0825);
+  const [projects, setProjects] = useState([]);
   //useState로 isAdding 상태를 생성함.
   const [isAdding, setIsAdding] = useState(false);
 
   // console.log(portfolioOwnerId);  // 디버깅
   useEffect(() => {
     // "projectlist/유저id"로 GET 요청하고, response의 data로 projects를 세팅함.
-    Api.get("projectlist", portfolioOwnerId).then((res) => setProjects(res.data));
+    Api.get("project", portfolioOwnerId).then((res) => setProjects(res.data));
   }, [portfolioOwnerId]);
 
   return (

@@ -3,8 +3,8 @@ import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import DatePicker from "react-datepicker";
 
-function 
-ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
+function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
+  
   //useState로 title 상태를 생성함.
   const [title, setTitle] = useState("");
   //useState로 description 상태를 생성함.
@@ -20,7 +20,7 @@ ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
     const user_id = portfolioOwnerId;
 
     // "project/create" 엔드포인트로 post요청함.
-    await Api.post("project/create", {
+    await Api.post("project", {
       user_id: portfolioOwnerId,
       title,
       description,
@@ -29,7 +29,7 @@ ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
     });
 
     // "projectlist/유저id" 엔드포인트로 get요청함.
-    const res = await Api.get("projectlist", user_id);
+    const res = await Api.get("project", user_id);
     // projects를 response의 data로 세팅함.
     setProjects(res.data);
     // project를 추가하는 과정이 끝났으므로, isAdding을 false로 세팅함.
