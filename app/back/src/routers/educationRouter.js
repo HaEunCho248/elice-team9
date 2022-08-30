@@ -59,7 +59,7 @@ educationRouter.put("/education/:object_id", login_required, async (req, res, ne
       // console.log(toUpdate); //디버깅 //OK
 
       const updatedEducation = await educationService.setEducation({ object_id, toUpdate });
-      console.log(updatedEducation); //디버깅 //null  
+      // console.log(updatedEducation); //디버깅 //null  
       if(updatedEducation.errorMessage) {
           throw new Error(updatedEducation.errorMessage);
       }
