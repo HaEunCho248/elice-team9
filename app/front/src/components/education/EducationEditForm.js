@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
-// import AcademyForm from "./AcademyForm";
+
 
 function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
-  console.log(currentEducation)
   //useState로 title 상태를 생성함.
-  const [schoolHidden, setSchoolHidden] = useState(currentEducation.school);
   const [school, setSchool] = useState(currentEducation.school);
   //useState로 description 상태를 생성함.
   const [major, setMajor] = useState(currentEducation.major);
-  const [position, setPosition] = useState("재학중");
+  const [position, setPosition] = useState(currentEducation.position);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,11 +16,13 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
 
     // currentAward의 user_id를 user_id 변수에 할당함.
     const user_id = currentEducation.user_id;
+    const object_id = currentEducation._id;
+    console.log(user_id, object_id);
 
     // "awards/수상 id" 엔드포인트로 PUT 요청함.
-    await Api.put(`educations/${currentEducation.user_id}`, {
+    await Api.put(`education/${currentEducation._id}`, {
       user_id,
-      schoolHidden,
+      _id: object_id,
       school,
       major,
       position,
@@ -36,24 +36,9 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
     setIsEditing(false);
   };
 
-  // const handleDelete = async(e) => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-
-  //   const user_id = currentEducation.user_id;
-
-  //   await Api.delete('educations', user_id);
-  // }
 
   return (
     <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formBasicSchool2">
-        <Form.Control
-          type="hidden"
-          placeholder="학교명"
-          value={currentEducation.school}
-        />
-      </Form.Group>
       <Form.Group controlId="formBasicTitle">
         <Form.Control
           type="text"
@@ -76,7 +61,7 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
         <Form.Check
           inline
           label="재학중"
-	      id="radio1"
+	        id="radio1"
           type="radio"
           name="position"
           value="재학중"

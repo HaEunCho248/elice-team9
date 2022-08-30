@@ -3,7 +3,8 @@ import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import DatePicker from "react-datepicker";
 
-function ProjectEditForm({ currentProject, setProjects, setIsEditing }) {
+function ProjectEditForm({currentProject, setProjects, setIsEditing }) {
+  // console.log(currentProject); //디버깅 코드 :ObjectId,_id, userid title, description, start, end (user_id없음)
   //useState로 title 상태를 생성함.
   const [title, setTitle] = useState(currentProject.title);
   //useState로 description 상태를 생성함.
@@ -16,11 +17,14 @@ function ProjectEditForm({ currentProject, setProjects, setIsEditing }) {
     e.stopPropagation();
 
     // currentProject의 user_id를 user_id 변수에 할당함.
+    const object_id = currentProject.object_id;
     const user_id = currentProject.user_id;
+    console.log(object_id);
+    // console.log(currentProject._id);
 
     // "projects/수상 id" 엔드포인트로 PUT 요청함.
-    await Api.put(`projects/${currentProject.id}`, {
-      user_id,
+    await Api.put(`project/${currentProject.object_id}`, {
+      object_id,
       title,
       description,
       startDate, 

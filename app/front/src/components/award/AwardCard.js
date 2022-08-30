@@ -7,6 +7,7 @@ import * as Api from "../../api";
 // 프론트에서 설정하여 back 보내줘야 할 것 같다는 생각이 듭니다.
 function AwardCard({ award, isEditable, setIsEditing }) {
   const [title, setTitle] = useState();
+  
   const handleDelete = (e, _id) => {
     e.preventDefault();
     e.stopPropagation();

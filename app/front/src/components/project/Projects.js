@@ -17,6 +17,7 @@ function Projects({ portfolioOwnerId, isEditable }) {
   //useState로 isAdding 상태를 생성함.
   const [isAdding, setIsAdding] = useState(false);
 
+  // console.log(portfolioOwnerId);  // 디버깅
   useEffect(() => {
     // "projectlist/유저id"로 GET 요청하고, response의 data로 projects를 세팅함.
     Api.get("projectlist", portfolioOwnerId).then((res) => setProjects(res.data));

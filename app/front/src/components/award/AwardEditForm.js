@@ -2,28 +2,24 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
+function AwardEditForm({ portfolioOwnerId, currentAward, setAwards, setIsEditing }) {
 
   const [title, setTitle] = useState(currentAward.title);
   const [description, setDescription] = useState(currentAward.description);
 
-  const objectId = currentAward._id
-  // currentAward._id 는 mongoDB ObjectId 로 보임
+  const object_id = currentAward.object_id
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-
-    const id = currentAward.id;
     
-    await Api.put(`awards/${objectId}`, {
-      id,
-      objectId,
+    await Api.put(`awards/${currentAward.object_id}`, {
+      object_id,
       title,
       description,
     });
 
-    const res = await Api.get("awardlist", id);
+    const res = await Api.get("awardlist", portfolioOwnerId);
     setAwards(res.data);
     setIsEditing(false);
   };
@@ -33,7 +29,7 @@ function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
       <Form.Group controlId="formBasicObjectId">
         <Form.Control
           type="hidden"
-          value={objectId}
+          value={object_id}
         />
       </Form.Group>
       <Form.Group controlId="formBasicTitle">

@@ -11,7 +11,8 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
     e.stopPropagation();
 
     const user_id = portfolioOwnerId;
-
+    console.log(portfolioOwnerId);
+    
     await Api.post("award/create", {
       user_id: portfolioOwnerId,
       title,
@@ -25,7 +26,6 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-
       <Form.Group controlId="formBasicTitle">
         <Form.Control
           type="text"

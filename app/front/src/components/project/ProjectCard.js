@@ -1,8 +1,7 @@
-import { useEffect } from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
 
-function ProjectCard({ project, isEditable, setIsEditing }) {
+function ProjectCard({ project, isEditable, setIsEditing, setProjects }) {
   return (
     <Card.Text>
       <Row className="align-items-center">
@@ -28,9 +27,19 @@ function ProjectCard({ project, isEditable, setIsEditing }) {
           <Button
             variant="outline-info"
             size="sm"
-//            onClick = {() => {
-//             Api.delete("projectlist",).then((res) => setProjects(res.data));
-//            } }
+            onClick={async (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              
+              const user_id = project.user_id;
+              // console.log(user_id);  //디버깅
+              const object_id = project.object_id;  // _id >> object_id 
+              // console.log(object_id) // 디버깅 
+              await Api.delete('project/delete', object_id);
+              const res = await Api.get("projectlist", user_id);
+              setProjects(res.data);
+              setIsEditing(false);
+            }}
             className="mr-3"
           >
             삭제
