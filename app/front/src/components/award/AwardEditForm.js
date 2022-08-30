@@ -28,12 +28,6 @@ function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formBasicObjectId">
-        <Form.Control
-          type="hidden"
-          value={object_id}
-        />
-      </Form.Group>
       <Form.Group controlId="formBasicTitle">
         <Form.Control
           type="text"

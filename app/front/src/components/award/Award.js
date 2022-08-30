@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import AwardCard from "./AwardCard";
 import AwardEditForm from "./AwardEditForm";
 
+// 수상이력 목록, 목록수정, 계정확인을 props로 받아옴
 function Award({ award, setAwards, isEditable }) {
   const [isEditing, setIsEditing] = useState(false);
-  console.log(`award 콘솔:`, award);
 
   return (
     <>

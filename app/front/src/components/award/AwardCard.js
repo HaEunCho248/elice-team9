@@ -4,6 +4,8 @@ import * as Api from "../../api";
 
 function AwardCard({ award, isEditable, setIsEditing, setAwards }) {
 
+
+  // 계정이 확인 되면 편집창과 삭제
   return (
     <Card.Text>
       <Row className="align-items-center">
