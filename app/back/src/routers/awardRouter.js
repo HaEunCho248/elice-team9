@@ -5,11 +5,7 @@ import { awardService } from "../services/awardService";
 
 const awardRouter = Router();
 // award 등록
-<<<<<<< HEAD
-awardRouter.post('/award/create', login_required, async function(req, res, next) {
-=======
 awardRouter.post('/awards', login_required, async function(req, res, next) {
->>>>>>> origin/feature/back-award
     try {
         if(is.emptyObject(req.body)) {
             throw new Error("headers의 Content-Type을 application/json으로 설정해주세요");
@@ -36,11 +32,7 @@ awardRouter.post('/awards', login_required, async function(req, res, next) {
 
 // award 리스트 가져오기
 awardRouter.get(
-<<<<<<< HEAD
-    "/awardlist/:user_id",
-=======
     "/awards/:user_id",
->>>>>>> origin/feature/back-award
     login_required,
     async function (req, res, next) {
       try {
