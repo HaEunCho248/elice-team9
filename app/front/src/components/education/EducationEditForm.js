@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import DatePicker from "react-datepicker";
 
 
 function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
@@ -9,6 +10,8 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
   //useState로 description 상태를 생성함.
   const [major, setMajor] = useState(currentEducation.major);
   const [position, setPosition] = useState(currentEducation.position);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,16 +19,17 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
 
     // currentAward의 user_id를 user_id 변수에 할당함.
     const user_id = currentEducation.user_id;
-    const object_id = currentEducation._id;
+    const object_id = currentEducation.object_id;
     console.log(user_id, object_id);
 
     // "awards/수상 id" 엔드포인트로 PUT 요청함.
-    await Api.put(`education/${currentEducation._id}`, {
-      user_id,
+    await Api.put(`education/${currentEducation.object_id}`, {
       _id: object_id,
       school,
       major,
       position,
+      startDate, 
+      endDate,
     });
 
     // "awardlist/유저id" 엔드포인트로 GET 요청함.
@@ -55,6 +59,22 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
           value={major}
           onChange={(e) => setMajor(e.target.value)}
         />
+      </Form.Group>
+      <Form.Group as={Row} className="mt-3">
+        
+        <Col>
+          시작일 <DatePicker 
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          />
+        </Col>
+        <Col>
+          종료일 <DatePicker 
+          selected={endDate}
+          onChange={(date) => setEndDate(date)}
+          />
+        </Col>
+        
       </Form.Group>
       <Form.Group>
       <div key={`inline-radio`} className="mb-3 mt-3">
