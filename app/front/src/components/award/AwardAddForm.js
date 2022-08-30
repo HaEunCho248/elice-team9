@@ -13,13 +13,13 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
     const user_id = portfolioOwnerId;
     console.log(portfolioOwnerId);
     
-    await Api.post("award/create", {
+    await Api.post("award", {
       user_id: portfolioOwnerId,
       title,
       description,
     });
 
-    const res = await Api.get("awardlist", user_id);
+    const res = await Api.get("awards", user_id);
     setAwards(res.data);
     setIsAdding(false);
   };

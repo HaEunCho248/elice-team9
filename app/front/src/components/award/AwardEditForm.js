@@ -2,36 +2,32 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 
-function AwardEditForm({ portfolioOwnerId, currentAward, setAwards, setIsEditing }) {
+function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
 
   const [title, setTitle] = useState(currentAward.title);
   const [description, setDescription] = useState(currentAward.description);
 
   const object_id = currentAward.object_id
 
+  console.log(`currentAward:`,currentAward)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     
-    await Api.put(`awards/${currentAward.object_id}`, {
+    await Api.put(`award/${currentAward.object_id}`, {
       object_id,
       title,
       description,
     });
 
-    const res = await Api.get("awardlist", portfolioOwnerId);
+    const res = await Api.get("awards", currentAward.user_id);
     setAwards(res.data);
     setIsEditing(false);
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formBasicObjectId">
-        <Form.Control
-          type="hidden"
-          value={object_id}
-        />
-      </Form.Group>
       <Form.Group controlId="formBasicTitle">
         <Form.Control
           type="text"
