@@ -36,7 +36,7 @@ function ProjectCard({ project, isEditable, setIsEditing, setProjects }) {
               const object_id = project.object_id;  // _id >> object_id 
               // console.log(object_id) // 디버깅 
               await Api.delete('projects', object_id);
-              const res = await Api.get("project", user_id);
+              const res = await Api.get("projects", user_id);
               setProjects(res.data);
               setIsEditing(false);
             }}

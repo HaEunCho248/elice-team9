@@ -11,6 +11,7 @@ projectRouter.post("/project", async (req, res, next) => {
         if(is.emptyObject(req.body)) {
             throw new Error("header의 Content-Tpye을 application/json으로 설정해주세요");
         }
+
         const user_id = req.body.user_id;
         const title = req.body.title;
         const description = req.body.description;
@@ -76,7 +77,7 @@ projectRouter.put("/project/:object_id", login_required, async (req, res, next) 
 // 특정 프로젝트 삭제
 projectRouter.delete("/projects/:object_id", login_required, async (req, res, next) => {
     try {
-        const object_id = req.body.object_id;
+        const object_id = req.params.object_id;
         const deleteProject = await projectService.delProject({ object_id });
         if (deleteProject.errorMessage) {
             throw new Error(deleteProject.errorMessage);

@@ -29,15 +29,12 @@ function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
     });
 
     // "projectlist/유저id" 엔드포인트로 get요청함.
-    const res = await Api.get("project", user_id);
+    const res = await Api.get("projects", user_id);
     // projects를 response의 data로 세팅함.
     setProjects(res.data);
     // project를 추가하는 과정이 끝났으므로, isAdding을 false로 세팅함.
     setIsAdding(false);
   };
-
-  //변수 설정으로 test 0825 office hour
-  //  const test = 
 
   return (
     <Form onSubmit={handleSubmit}>
