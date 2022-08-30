@@ -15,15 +15,10 @@ const AwardSchema = new Schema(
       required: false,
       default: "",
     },
-    description: {
+    awardDate: {
       type: String,
-      required: false,
-      default: "",
+      required: true,
     },
-    changedAwardedDate: {
-      type: String,
-      required: false,
-    }
   },
   {
     timestamps: true,

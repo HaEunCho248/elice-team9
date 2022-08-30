@@ -10,16 +10,15 @@ awardRouter.post('/award', login_required, async function(req, res, next) {
         if(is.emptyObject(req.body)) {
             throw new Error("headers의 Content-Type을 application/json으로 설정해주세요");
         }
-
         const user_id = req.body.user_id;
         const title = req.body.title;
         const description = req.body.description;
-        const changedAwardedDate = req.body.changedAwardedDate;
+        const awardDate = req.body.awardDate;
         const newAward = await awardService.addAward({
             user_id,
             title,
             description,
-            changedAwardedDate,
+            awardDate
         });
 
         if (newAward.errorMessage) {
@@ -58,8 +57,8 @@ awardRouter.put('/award/:object_id', login_required, async function(req, res, ne
         const object_id = req.params.object_id;
         const title = req.body.title ?? null;
         const description = req.body.description ?? null;
-        const changedAwardedDate = req.body.changedAwardedDate;
-        const toUpdate = { title, description, changedAwardedDate };
+        const awardDate = req.body.awardDate ?? null;
+        const toUpdate = { title, description, awardDate };
         const updatedAward = await awardService.setAward({ object_id, toUpdate });
         if(updatedAward.errorMessage) {
             throw new Error(updatedAward.errorMessage);

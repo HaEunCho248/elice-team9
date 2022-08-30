@@ -16,7 +16,8 @@ class Award {
             object_id: Award._id,
             user_id: Award.user_id,
             title: Award.title,
-            description: Award.description
+            description: Award.description,
+            awardDate: Award.awardDate.substr(0, 10)
         };
     }
 
@@ -29,7 +30,7 @@ class Award {
                 user_id: data.user_id,
                 title: data.title,
                 description: data.description,
-                changedAwardedDate: data.changedAwardedDate
+                awardDate: data.awardDate
             };
         });
         

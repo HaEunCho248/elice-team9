@@ -21,22 +21,21 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
     e.preventDefault();
     e.stopPropagation();
 
-    const changedAwardedDate = changeFormat(awardedDate, "yyyy-MM-DD");  // 미리 만든 moment 함수를 적용
+    const awardDate = changeFormat(awardedDate, "yyyy-MM-DD");  // 미리 만든 moment 함수를 적용
     
     const user_id = portfolioOwnerId;
-    console.log(portfolioOwnerId);
     
     await Api.post("award", {
       user_id: portfolioOwnerId,
       title,
       description,
-      changedAwardedDate,
+      awardDate,
     });
 
     const res = await Api.get("awards", user_id);
     setAwards(res.data);
     setIsAdding(false);
-    setAwardedDate(res.changedAwardedDate);
+    setAwardedDate(res.awardDate);
   };
 
   return (

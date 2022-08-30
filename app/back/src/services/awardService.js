@@ -2,7 +2,7 @@ import { Award } from "../db";
 
 class awardService {
     // award 등록
-    static async addAward({ user_id, title, description, changedAwardedDate }) {
+    static async addAward({ user_id, title, description, awardDate }) {
         const users = await Award.findAll({ user_id });
         
         if(users.length > 0) {
@@ -16,7 +16,7 @@ class awardService {
             }
         }
         
-        const newAward = { user_id, title, description, changedAwardedDate };
+        const newAward = { user_id, title, description, awardDate };
         const createNewAward = await Award.create({ newAward });
         
         return createNewAward;
@@ -50,9 +50,9 @@ class awardService {
             const newValue = toUpdate.description;
             award = await Award.update({ object_id, fieldToUpdate, newValue });
         }
-        if(toUpdate.changedAwardedDate) {
-            const fieldToUpdate = "changedAwardedDate";
-            const newValue = toUpdate.changedAwardedDate;
+        if(toUpdate.awardDate) {
+            const fieldToUpdate = "awardDate";
+            const newValue = toUpdate.awardDate;
             award = await Award.update({ object_id, fieldToUpdate, newValue });
         }
         

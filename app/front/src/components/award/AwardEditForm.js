@@ -20,19 +20,17 @@ function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
 
   const object_id = currentAward.object_id
 
-  console.log(`currentAward:`,currentAward)
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     
-    const changedAwardedDate = changeFormat(awardedDate, "yyyy-MM-DD");  // 미리 만든 moment 함수를 적용
+    const awardDate = changeFormat(awardedDate, "yyyy-MM-DD");  // 미리 만든 moment 함수를 적용
 
     await Api.put(`award/${currentAward.object_id}`, {
       object_id,
       title,
       description,
-      changedAwardedDate,
+      awardDate,
     });
 
     const res = await Api.get("awards", currentAward.user_id);

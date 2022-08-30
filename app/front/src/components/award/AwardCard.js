@@ -12,7 +12,7 @@ function AwardCard({ award, isEditable, setIsEditing, setAwards }) {
           <br />
           <span className="text-muted">{award.description}</span>
           <br />
-          <span className="text-muted">{award.changedAwardedDate}</span>
+          <span className="text-muted">{award.awardDate}</span>
         </Col>
         {isEditable && (
           <Col xs lg="1">
