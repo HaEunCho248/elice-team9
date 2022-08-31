@@ -16,20 +16,25 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [awardedDate, setAwardedDate] = useState(new Date());
+  const [awardImg, setAwardImg] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
+    const awardFormData = new FormData();
+    awardFormData.append("image", awardImg)
+
     const awardDate = changeFormat(awardedDate, "yyyy-MM-DD");  // 미리 만든 moment 함수를 적용
-    
     const user_id = portfolioOwnerId;
-    
+    console.log(`확인용:`, awardImg);
+
     await Api.post("award", {
       user_id: portfolioOwnerId,
       title,
       description,
       awardDate,
+      awardFormData,
     });
 
     const res = await Api.get("awards", user_id);
@@ -66,6 +71,14 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
           onChange={(date) => setAwardedDate(date)}
           />
         </Col>
+      </Form.Group>
+
+      <Form.Group controlId="formFileSm" className="mt-3">
+        <Form.Label>사진</Form.Label>
+        <Form.Control 
+          type="file" 
+          size="sm"
+          onChange={(e) => {setAwardImg(e.target.files[0])}}/>
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center">
