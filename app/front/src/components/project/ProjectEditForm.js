@@ -31,6 +31,10 @@ function ProjectEditForm({currentProject, setProjects, setIsEditing }) {
       endDate,
     });
 
+    if (startDate > endDate) {
+      alert("날짜를 확인해주세요.");
+    }
+
     // "projectlist/유저id" 엔드포인트로 GET 요청함.
     const res = await Api.get("projects", user_id);
     // projects를 response의 data로 세팅함.

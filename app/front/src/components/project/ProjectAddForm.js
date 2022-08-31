@@ -3,6 +3,9 @@ import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import DatePicker from "react-datepicker";
 
+import {intDate, todayDate} from "./projectFunc"
+console.log(todayDate);
+
 function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
   
   //useState로 title 상태를 생성함.
@@ -11,6 +14,7 @@ function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [checkEndDate, setCheckEndDate] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,11 +70,18 @@ function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
           />
         </Col>
         <Col>
-          종료일 <DatePicker 
+          종료일 (오늘 날짜 이후 입력 시, '현재 진행중'으로 표기) <DatePicker 
           selected={endDate}
-          onChange={(date) => setEndDate(date)}
+          onChange={(date) => {
+            setEndDate(date)
+            console.log("test1")
+            if (intDate(endDate) >= parseInt(todayDate)) {
+              console.log("test성공")
+            setCheckEndDate(false);
+          }  console.log("test2")}}
           />
-        </Col>
+        </Col> 
+        
         
       </Form.Group>
 
