@@ -16,7 +16,7 @@ function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
 
   const [title, setTitle] = useState(currentAward.title);
   const [description, setDescription] = useState(currentAward.description);
-  const [awardedDate, setAwardedDate] = useState(new Date());
+  const [awardedDate, setAwardedDate] = useState(new Date(currentAward.awardDate));
 
   const object_id = currentAward.object_id
 
