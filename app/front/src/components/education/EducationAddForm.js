@@ -12,6 +12,10 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
+  const dateToString = (date) => {
+    return date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0')
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
