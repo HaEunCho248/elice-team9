@@ -15,6 +15,10 @@ const AwardSchema = new Schema(
       required: false,
       default: "",
     },
+    awardDate: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

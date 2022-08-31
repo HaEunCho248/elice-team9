@@ -5,18 +5,20 @@ import { awardService } from "../services/awardService";
 
 const awardRouter = Router();
 // award 등록
-awardRouter.post('/award', login_required, async function(req, res, next) {
+awardRouter.post('/awards', login_required, async function(req, res, next) {
     try {
         if(is.emptyObject(req.body)) {
             throw new Error("headers의 Content-Type을 application/json으로 설정해주세요");
-        }   
+        }
         const user_id = req.body.user_id;
         const title = req.body.title;
         const description = req.body.description;
+        const awardDate = req.body.awardDate;
         const newAward = await awardService.addAward({
             user_id,
             title,
             description,
+            awardDate
         });
 
         if (newAward.errorMessage) {
@@ -50,12 +52,13 @@ awardRouter.get(
   );
 
 // award 편집
-awardRouter.put('/award/:object_id', login_required, async function(req, res, next) {
+awardRouter.put('/awards/:object_id', login_required, async function(req, res, next) {
     try {
         const object_id = req.params.object_id;
         const title = req.body.title ?? null;
         const description = req.body.description ?? null;
-        const toUpdate = { title, description };
+        const awardDate = req.body.awardDate ?? null;
+        const toUpdate = { title, description, awardDate };
         const updatedAward = await awardService.setAward({ object_id, toUpdate });
         if(updatedAward.errorMessage) {
             throw new Error(updatedAward.errorMessage);

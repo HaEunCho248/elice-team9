@@ -24,6 +24,7 @@ async function post(endpoint, data) {
   const bodyData = JSON.stringify(data);
   console.log(`%cPOST 요청: ${serverUrl + endpoint}`, "color: #296aba;");
   console.log(`%cPOST 요청 데이터: ${bodyData}`, "color: #296aba;");
+  console.log(`data:`, data);
 
   return axios.post(serverUrl + endpoint, bodyData, {
     headers: {
