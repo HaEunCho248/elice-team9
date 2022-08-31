@@ -18,6 +18,14 @@ const EducationSchema = new Schema(
       type: String,
       required: true,
     },
+    startDate:{
+      type: String,
+      required: true,
+    },
+    endDate:{
+      type: String,
+      required: false,
+    }
   },
   {
     timestamps: true,
