@@ -6,6 +6,8 @@ import DatePicker from "react-datepicker";
 
 function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
   //useState로 title 상태를 생성함.
+  // console.timeLog(currentEducation)
+  console.log(currentEducation)
   const [school, setSchool] = useState(currentEducation.school);
   //useState로 description 상태를 생성함.
   const [major, setMajor] = useState(currentEducation.major);
@@ -24,7 +26,7 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
 
     // "awards/수상 id" 엔드포인트로 PUT 요청함.
     await Api.put(`education/${currentEducation.object_id}`, {
-      _id: object_id,
+      object_id,
       school,
       major,
       position,
