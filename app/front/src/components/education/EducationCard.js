@@ -15,7 +15,7 @@ function EducationCard({ education, isEditable, setIsEditing, setEducations }) {
          
           <br />
           <span className="text-muted">{education.startDate}</span>
-          &nbsp;&nbsp;&nbsp;
+          &nbsp; ~&nbsp;
           <span className="text-muted"> {education.endDate}</span>
         </Col>
         {isEditable && (
