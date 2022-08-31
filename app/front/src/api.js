@@ -28,8 +28,8 @@ async function post(endpoint, data) {
 
   return axios.post(serverUrl + endpoint, bodyData, {
     headers: {
-      // "Content-Type": "application/json",
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "application/json",
+      // "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
     },
   });

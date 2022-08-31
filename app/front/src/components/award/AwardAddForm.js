@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import DatePicker from "react-datepicker";
-import moment from "moment";  //moment 모듈 설치
+import moment from "moment";  //moment 모듈 설치, date fns //format(new Date(), “yyyy-MM-dd”)
 
 function changeFormat(date, format) { //moment 변환을 함수로 미리 빼 두어서 사용.
   if (moment(date).isValid()) {
@@ -22,10 +22,11 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
     e.preventDefault();
     e.stopPropagation();
 
-    const awardFormData = new FormData();
+    const awardFormData = new FormData(); //formdata에 다른 정보도 넣어서 보내는 방향으로
     awardFormData.append("image", awardImg)
 
     const awardDate = changeFormat(awardedDate, "yyyy-MM-DD");  // 미리 만든 moment 함수를 적용
+
     const user_id = portfolioOwnerId;
     console.log(`확인용:`, awardImg);
 
@@ -66,7 +67,6 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
       <Form.Group as={Row} className="mt-3">
         <Col>
           수상일 <DatePicker 
-          dateFormat = "yyyy.MM.dd"
           selected={awardedDate}
           onChange={(date) => setAwardedDate(date)}
           />
