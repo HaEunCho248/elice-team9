@@ -12,8 +12,8 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
   //useState로 description 상태를 생성함.
   const [major, setMajor] = useState(currentEducation.major);
   const [position, setPosition] = useState(currentEducation.position);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(ew Date(currentEducation.startDate)));
+  const [endDate, setEndDate] = useState(new Date(currentEducation.endDate));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
