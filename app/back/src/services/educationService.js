@@ -1,7 +1,7 @@
 import { Education } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
 
 class educationService {
-  static async addEducation({ user_id, school, major, position }) {
+  static async addEducation({ user_id, projectData }) {
     
     // const educations = await Education.findAll({ user_id });
     // if(educations.length > 0) {
@@ -15,7 +15,7 @@ class educationService {
     //   }
     // }
     
-    const newEducation = { user_id, school, major, position };
+    const newEducation = { user_id, ...projectData};
     const createdNewEducation = await Education.create({ newEducation });
     
     return createdNewEducation;
@@ -54,6 +54,17 @@ class educationService {
       education = await Education.update({ object_id, fieldToUpdate, newValue });
     }
 
+    if(toUpdate.startDate) {
+      const fieldToUpdate = "startDate";
+      const newValue = toUpdate.startDate
+      education = await Education.update({ object_id, fieldToUpdate, newValue });
+    }
+    if(toUpdate.endDate) {
+      const fieldToUpdate = "endDate";
+      const newValue = toUpdate.endDate
+      education= await Education.update({ object_id, fieldToUpdate, newValue });
+  }
+
     return education;
   }
 
@@ -65,4 +76,3 @@ class educationService {
 }
 
 export { educationService };
-
