@@ -9,17 +9,17 @@ class Award {
     }
 
     // 특정 Award 데이터 가져오기
-    static async findById({ user_id }) {
-        const Award = await AwardModel.findOne({user_id: user_id});
+    // static async findById({ user_id }) {
+    //     const Award = await AwardModel.findOne({user_id: user_id});
 
-        return {
-            object_id: Award._id,
-            user_id: Award.user_id,
-            title: Award.title,
-            description: Award.description,
-            awardDate: Award.awardDate.substr(0, 10)
-        };
-    }
+    //     return {
+    //         object_id: Award._id,
+    //         user_id: Award.user_id,
+    //         title: Award.title,
+    //         description: Award.description,
+    //         awardDate: Award.awardDate.substr(0, 10)
+    //     };
+    // }
 
     // Award 데이터 전부 가져오기
     static async findAll({ user_id }) {
@@ -30,7 +30,7 @@ class Award {
                 user_id: data.user_id,
                 title: data.title,
                 description: data.description,
-                awardDate: data.awardDate
+                awardDate: data.awardDate.substr(0, 10)
             };
         });
         
