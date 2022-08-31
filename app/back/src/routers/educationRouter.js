@@ -16,13 +16,19 @@ educationRouter.post("/education/create", login_required, async (req, res, next)
     const school = req.body.school;
     const major = req.body.major;
     const position = req.body.position;
-    
-    // 위 데이터를 학력 db에 추가하기
-    const newEducation = await educationService.addEducation({
-      user_id,
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
+    const projectData = {
       school,
       major,
       position,
+      startDate,
+      endDate,
+    }
+    // 위 데이터를 학력 db에 추가하기
+    const newEducation = await educationService.addEducation({
+      user_id,
+      projectData
     });
     
     if (newEducation.errorMessage) {
@@ -54,15 +60,19 @@ educationRouter.put("/education/:object_id", login_required, async (req, res, ne
       const school = req.body.school ?? null;
       const major = req.body.major ?? null;
       const position = req.body.position ?? null;
+      const startDate = req.body.startDate ?? null;
+      const endDate = req.body.endDate ?? null;
 
-      const toUpdate = { school, major, position };
-      // console.log(toUpdate); //디버깅 //OK
+      const toUpdate = { school, major, position, startDate, endDate };
+      console.log("toupdate: ",toUpdate); //디버깅 //OK
 
       const updatedEducation = await educationService.setEducation({ object_id, toUpdate });
-      // console.log(updatedEducation); //디버깅 //null  
-      if(updatedEducation.errorMessage) {
-          throw new Error(updatedEducation.errorMessage);
-      }
+      console.log("updatedEducation: ", updatedEducation); //디버깅 id
+       if(updatedEducation.errorMessage){
+        throw new Error(updatedEducation.errorMessage);
+       }   
+      
+      
       res.status(200).json(updatedEducation);
     } catch (error) {
       next(error);
