@@ -22,20 +22,21 @@ async function post(endpoint, data) {
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
 
-  let entries = data.awardFormData.entries();
+  let entries = data.formData.entries();
   for (const pair of entries) {
     console.log(`api formdata 확인:`, pair[0]+ ', ' + pair[1])};  //multer 확인
     
   // const bodyData = JSON.stringify(data);
-  const bodyData = data;
+  const bodyData = data; // 확인용
   console.log(`%cPOST 요청: ${serverUrl + endpoint}`, "color: #296aba;");
   console.log(`%cPOST 요청 데이터: ${bodyData}`, "color: #296aba;");
-  console.log(`bodyData 확인:`, data)
+  console.log(`bodyData 확인:`, bodyData)
 
 
   return axios.post(serverUrl + endpoint, bodyData, {
     headers: {
-      "Content-Type": "multipart/form-data",
+      // "Content-Type": "multipart/form-data",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
     },
   });

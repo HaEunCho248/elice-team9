@@ -26,19 +26,20 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
 
     const user_id = portfolioOwnerId;
 
-    let awardFormData = new FormData(); //formdata에 다른 정보도 넣어서 보내는 방향으로
-    awardFormData.append("image", awardImg);
-    awardFormData.append("user_id", portfolioOwnerId);
-    awardFormData.append("title", title);
-    awardFormData.append("description", description);
-    awardFormData.append("awardDate", awardDate);
+    let formData = new FormData(); //formdata에 다른 정보도 넣어서 보내는 방향으로
+    formData.append("image", awardImg);
+    formData.append("user_id", portfolioOwnerId);
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("awardDate", awardDate);
 
-    let entries = awardFormData.entries();
+    let entries = formData.entries();
     for (const pair of entries) {
         console.log(`awardAddForm formdata 확인:`, pair[0]+ ', ' + pair[1])}; //multer 확인
+    console.log(`확인용:`, formData);
 
     await Api.post("award", {
-      awardFormData,
+      formData,
     });
 
     // await Api.post("award", {
@@ -89,7 +90,7 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
           type="file"
           size="sm"
           encType="multipart/form-data" 
-          name="awardFormData"
+          name="formData"
           onChange={(e) => {
             setAwardImg(e.target.files[0])
             console.log(`event 확인:`, e.target.files[0])

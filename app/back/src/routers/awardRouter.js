@@ -8,9 +8,10 @@ const awardRouter = Router();
 
 // award 등록
 awardRouter.post('/award', login_required, async function(req, res, next) {
+    console.log(`req:`, req);
     try {
 
-        console.log(`awardRouter 확인:`, req)
+        // console.log(`awardRouter 확인:`, req.file);  // req 찾기
 
         if(is.emptyObject(req.body)) {
             throw new Error("headers의 Content-Type을 application/json으로 설정해주세요");
@@ -18,9 +19,11 @@ awardRouter.post('/award', login_required, async function(req, res, next) {
         const user_id = req.body.user_id;
         const title = req.body.title;
         const description = req.body.description;
+
         const awardDate = req.body.awardDate;
-        const awardFormData = req.body.awardFormData;
+        const formData = req.body.formData;
         const awardImg = req.file;
+
 
         console.log(`awardRouter확인:`,awardImg);
         
@@ -29,7 +32,7 @@ awardRouter.post('/award', login_required, async function(req, res, next) {
             title,
             description,
             awardDate,
-            awardFormData,
+            formData,
             awardImg,
         });
 
