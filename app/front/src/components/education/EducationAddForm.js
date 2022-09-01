@@ -11,8 +11,9 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
   const [position, setPosition] = useState("재학중");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-
-
+  const [ongoing, setOngoing] = useState(false)
+  
+  const today = new Date();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,6 +30,7 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
       position,
       startDate,
       endDate,
+      ongoing
     });
 
     // "academylist/유저id" 엔드포인트로 get요청함.
@@ -69,11 +71,22 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
           />
         </Col>
         <Col>
-          종료일 <DatePicker 
+          종료일<DatePicker 
           selected={endDate}
-          onChange={(date) => setEndDate(date)}
+          onChange={(date) => {
+            if(date < startDate){
+              alert("종료일이 시작일보다 빠릅니다.")
+              setOngoing(false)
+            }else if(date > today){
+              setOngoing(true)
+              setEndDate(date)
+            }else{
+              setOngoing(false)
+              setEndDate(date)}
+            }}
           />
         </Col>
+      
         
       </Form.Group>
 
@@ -138,4 +151,5 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
 }
 
 export default EducationAddForm;
+
 
