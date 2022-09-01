@@ -5,7 +5,7 @@ import { educationService } from "../services/educationService";
 
 const educationRouter = Router();
 
-educationRouter.post("/education/create", login_required, async (req, res, next) => {
+educationRouter.post("/education", login_required, async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error("headers의 Content-Type을 application/json으로 설정해주세요");
@@ -41,7 +41,7 @@ educationRouter.post("/education/create", login_required, async (req, res, next)
   }
 });
 
-educationRouter.get("/educationlist/:user_id", login_required, async function (req, res, next) {
+educationRouter.get("/educations/:user_id", login_required, async function (req, res, next) {
     try {
       const user_id = req.params.user_id;
       const currentEducationInfo = await educationService.getEducations({ user_id });
@@ -80,7 +80,7 @@ educationRouter.put("/education/:object_id", login_required, async (req, res, ne
   }
 );
 
-educationRouter.delete('/education/delete/:object_id', login_required, async (req, res, next) => {
+educationRouter.delete('/education/:object_id', login_required, async (req, res, next) => {
   try {
       const object_id = req.params.object_id;  // _id >> object_id
       // console.log(object_id);
