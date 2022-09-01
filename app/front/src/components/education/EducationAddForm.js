@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import DatePicker from "react-datepicker";
 
 function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
   //useState로 title 상태를 생성함.
@@ -8,7 +9,12 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
   //useState로 description 상태를 생성함.
   const [major, setMajor] = useState("");
   const [position, setPosition] = useState("재학중");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [ongoing, setOngoing] = useState(false)
   
+  const today = new Date();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -17,17 +23,21 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
     const user_id = portfoiloOwnerId;
     console.log(portfoiloOwnerId)
     // "academy/create" 엔드포인트로 post요청함.
-    await Api.post("education/create", {
+    await Api.post("education", {
       user_id:user_id,
       school,
       major,
       position,
+      startDate,
+      endDate,
+      ongoing
     });
 
     // "academylist/유저id" 엔드포인트로 get요청함.
-    const res = await Api.get("educationlist", user_id);
+    const res = await Api.get("educations", user_id);
     // academys를 response의 data로 세팅함.
     setEducations(res.data);
+    console.log(res.data)
     // academy를 추가하는 과정이 끝났으므로, isAdding을 false로 세팅함.
     setIsAdding(false);
   };
@@ -50,6 +60,34 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
           value={major}
           onChange={(e) => setMajor(e.target.value)}
         />
+      </Form.Group>
+
+      <Form.Group as={Row} className="mt-3">
+        
+        <Col>
+          시작일 <DatePicker 
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          />
+        </Col>
+        <Col>
+          종료일<DatePicker 
+          selected={endDate}
+          onChange={(date) => {
+            if(date < startDate){
+              alert("종료일이 시작일보다 빠릅니다.")
+              setOngoing(false)
+            }else if(date > today){
+              setOngoing(true)
+              setEndDate(date)
+            }else{
+              setOngoing(false)
+              setEndDate(date)}
+            }}
+          />
+        </Col>
+      
+        
       </Form.Group>
 
       <div key={`inline-radio`} className="mb-3 mt-3">
