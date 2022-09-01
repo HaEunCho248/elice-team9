@@ -1,7 +1,7 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
 
-function EducationCard({ education, isEditable, setIsEditing, setEducations }) {
+function EducationCard({ education, isEditable, setIsEditing, setEducations}) {
 
   const delHandler = async (e) => {
     e.preventDefault();
@@ -14,7 +14,6 @@ function EducationCard({ education, isEditable, setIsEditing, setEducations }) {
     const res = await Api.get("educations", user_id);
     setEducations(res.data);
     setIsEditing(false);}
-
   return (
     <Card.Text>
       <Row className="align-items-center">
@@ -24,11 +23,13 @@ function EducationCard({ education, isEditable, setIsEditing, setEducations }) {
           <span className="text-muted"> {education.position}</span>
           <br />
           <span className="text-muted">{education.major}</span>
-         
           <br />
           <span className="text-muted">{education.startDate}</span>
           &nbsp; ~&nbsp;
-          <span className="text-muted"> {education.endDate}</span>
+          {education.ongoing ? (
+          <span className="text-muted"> </span>
+          ): (<span className="text-muted"> {education.endDate}</span>)}
+          
         </Col>
         {isEditable && (
           <Col xs lg="1">
