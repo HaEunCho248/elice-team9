@@ -21,7 +21,8 @@ class Education {
         major: data.major,
         position: data.position,
         startDate: data.startDate.substr(0,10),
-        endDate: data.endDate.substr(0,10)
+        endDate: data.endDate.substr(0,10),
+        ongoing: data.ongoing
       }
     })
     return education_list;
