@@ -1,32 +1,14 @@
 import { Education } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
 
 class educationService {
-  static async addEducation({ user_id, school, major, position }) {
+  static async addEducation({ user_id, projectData }) {
     
-    // const educations = await Education.findAll({ user_id });
-    // if(educations.length > 0) {
-    //   const errorMessage = educations.map((educations) => {
-    //       if(educations.school === school) {
-    //           return "같은 이름의 학력내역이 있습니다."
-    //       }
-    //   });
-    //   if(errorMessage[0] != undefined) {
-    //       return errorMessage;
-    //   }
-    // }
-    
-    const newEducation = { user_id, school, major, position };
+    const newEducation = { user_id, ...projectData};
     const createdNewEducation = await Education.create({ newEducation });
     
     return createdNewEducation;
   }
 
-  // static async getEducation({ user_id }) {
-  //   const educations = await Education.findById({ user_id });
-
-  //   return educations;
-  // }
-  
   static async getEducations({ user_id }) {
     const educations = await Education.findAll({ user_id });
 
@@ -54,15 +36,31 @@ class educationService {
       education = await Education.update({ object_id, fieldToUpdate, newValue });
     }
 
+    if(toUpdate.startDate) {
+      const fieldToUpdate = "startDate";
+      const newValue = toUpdate.startDate
+      education = await Education.update({ object_id, fieldToUpdate, newValue });
+    }
+    if(toUpdate.endDate) {
+      const fieldToUpdate = "endDate";
+      const newValue = toUpdate.endDate
+      education= await Education.update({ object_id, fieldToUpdate, newValue });
+  }
+    if(toUpdate.ongoing) {
+      const fieldToUpdate = "ongoing";
+      const newValue = toUpdate.endDate
+      education= await Education.update({ object_id, fieldToUpdate, newValue });
+  }
+
     return education;
   }
 
   static async delEducation({ object_id }) {
     const deleteEducation = await Education.delete({ object_id });
-    // console.log(object_id, deleteEducation) // 디버깅 // undefined 
     return deleteEducation;
 }
 }
 
 export { educationService };
+
 
