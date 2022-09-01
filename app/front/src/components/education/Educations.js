@@ -9,6 +9,7 @@ function Educations({ portfolioOwnerId, isEditable }) {
   const [educations, setEducations] = useState([]);
   //useState로 isAdding 상태를 생성함.
   const [isAdding, setIsAdding] = useState(false);
+
   console.log(portfolioOwnerId)
   useEffect(() => {
     // "awardlist/유저id"로 GET 요청하고, response의 data로 awards를 세팅함.
