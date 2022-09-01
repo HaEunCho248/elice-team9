@@ -11,20 +11,6 @@ class Certificate {
     return certificate;
   }
 
-  // static async findAll({ user_id }) {
-  //   const filter = { user_id: user_id };
-  //   const certificates = await CertificateModel.find(filter);
-  //   const certificate_list = certificates.map((data) => {   
-  //     return {
-  //         object_id: data._id,
-  //         user_id: data.user_id,
-  //         title: data.title,
-  //         description: data.description,
-  //         acquisitionDate: data.acquisitionDate.substring(0, 10),
-  //     }
-  //   });
-  //   return certificate_list;
-  // }
   static async findAll({ user_id }) {
     // const certificates = await CertificateModel.find({ user_id });
     const filter = { user_id: user_id };
@@ -40,7 +26,6 @@ class Certificate {
           acquisitionDate: data.acquisitionDate.substring(0, 10),
       }
   });
-        // console.log(Projects);
     return certificate_list;
   }
 
