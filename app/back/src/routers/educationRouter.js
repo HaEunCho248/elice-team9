@@ -18,12 +18,14 @@ educationRouter.post("/education", login_required, async (req, res, next) => {
     const position = req.body.position;
     const startDate = req.body.startDate;
     const endDate = req.body.endDate;
+    const ongoing = req.body.ongoing;
     const projectData = {
       school,
       major,
       position,
       startDate,
       endDate,
+      ongoing,
     }
     // 위 데이터를 학력 db에 추가하기
     const newEducation = await educationService.addEducation({
@@ -62,8 +64,9 @@ educationRouter.put("/education/:object_id", login_required, async (req, res, ne
       const position = req.body.position ?? null;
       const startDate = req.body.startDate ?? null;
       const endDate = req.body.endDate ?? null;
+      const ongoing = req.body.ongoing ?? null;
 
-      const toUpdate = { school, major, position, startDate, endDate };
+      const toUpdate = { school, major, position, startDate, endDate, ongoing };
       console.log("toupdate: ",toUpdate); //디버깅 //OK
 
       const updatedEducation = await educationService.setEducation({ object_id, toUpdate });
