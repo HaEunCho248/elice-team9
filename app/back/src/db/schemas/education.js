@@ -25,6 +25,10 @@ const EducationSchema = new Schema(
     endDate:{
       type: String,
       required: false,
+    },
+    ongoing:{
+      type: Boolean,
+      required: false,
     }
   },
   {
@@ -35,3 +39,4 @@ const EducationSchema = new Schema(
 const EducationModel = model("Education", EducationSchema);
 
 export { EducationModel };
+
