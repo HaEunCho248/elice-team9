@@ -6,18 +6,27 @@ class Education {
     return createdNewEducation;
   }
 
-  // static async findById({ user_id }) {
-  //   const education = await EducationModel.findOne({ user_id });
-  //   return education;
-  // }
 
   static async findAll({ user_id }) {
     const educations = await EducationModel.find({ user_id });
-    return educations;
+    const education_list = educations.map((data)=>{
+      return{
+        object_id:data._id,
+        user_id:data.user_id,
+        school: data.school,
+        major: data.major,
+        position: data.position,
+        startDate: data.startDate.substr(0,10),
+        endDate: data.endDate.substr(0,10),
+        ongoing: data.ongoing
+      }
+    })
+    return education_list;
+    ;
   }
 
   static async update({ object_id, fieldToUpdate, newValue }) {
-    const filter = { _id: object_id };
+    const filter = { _id:object_id };
     const update = { [fieldToUpdate]: newValue };
     const option = { returnOriginal: false };
 
