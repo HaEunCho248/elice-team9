@@ -71,7 +71,10 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
         <Col>
           시작일 <DatePicker 
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={(date) => {
+            if(date>today){
+              alert("시작일이 오늘보다 늦습니다.")
+            }else{setStartDate(date)}}}
           />
         </Col>
         <Col>
