@@ -26,20 +26,27 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
 
     const user_id = portfolioOwnerId;
 
-    const awardFormData = new FormData(); //formdata에 다른 정보도 넣어서 보내는 방향으로
+    let awardFormData = new FormData(); //formdata에 다른 정보도 넣어서 보내는 방향으로
     awardFormData.append("image", awardImg);
     awardFormData.append("user_id", portfolioOwnerId);
     awardFormData.append("title", title);
     awardFormData.append("description", description);
     awardFormData.append("awardDate", awardDate);
 
+    let entries = awardFormData.entries();
+    for (const pair of entries) {
+        console.log(`awardAddForm formdata 확인:`, pair[0]+ ', ' + pair[1])}; //multer 확인
+
     await Api.post("award", {
-      awardFormData
-      // user_id: portfolioOwnerId,
-      // title,
-      // description,
-      // awardDate,
+      awardFormData,
     });
+
+    // await Api.post("award", {
+    //   user_id: portfolioOwnerId,
+    //   title,
+    //   description,
+    //   awardDate,
+    // });
 
     const res = await Api.get("awards", user_id);
     setAwards(res.data);
@@ -80,9 +87,13 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
         <Form.Label>사진</Form.Label>
         <Form.Control 
           type="file"
-          name="userfile"
           size="sm"
-          onChange={(e) => {setAwardImg(e.target.files[0])}}/>
+          encType="multipart/form-data" 
+          name="awardFormData"
+          onChange={(e) => {
+            setAwardImg(e.target.files[0])
+            console.log(`event 확인:`, e.target.files[0])
+            }}/>
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center">
