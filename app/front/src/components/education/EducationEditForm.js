@@ -14,7 +14,10 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
   const [position, setPosition] = useState(currentEducation.position);
   const [startDate, setStartDate] = useState(new Date(currentEducation.startDate));
   const [endDate, setEndDate] = useState(new Date(currentEducation.endDate));
+  const [ongoing, setOngoing] = useState(currentEducation.ongoing);
 
+  const today = new Date();
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -32,6 +35,7 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
       position,
       startDate, 
       endDate,
+      ongoing
     });
 
     // "awardlist/유저id" 엔드포인트로 GET 요청함.
@@ -73,7 +77,17 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
         <Col>
           종료일 <DatePicker 
           selected={endDate}
-          onChange={(date) => setEndDate(date)}
+          onChange={(date) => {
+            if(date < startDate){
+              alert("종료일이 시작일보다 빠릅니다.")
+              setOngoing(false)
+            }else if(date > today){
+              setOngoing(true)
+              setEndDate(date)
+            }else{
+              setOngoing(false)
+              setEndDate(date)}
+            }}
           />
         </Col>
         
@@ -141,4 +155,3 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
 }
 
 export default EducationEditForm;
-
