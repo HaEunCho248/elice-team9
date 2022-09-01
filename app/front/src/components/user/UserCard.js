@@ -19,7 +19,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text>{user?.description}</Card.Text>
 
-        {/* <LikeButton /> */}
+       <LikeButton userId={user?.id}/> 
 
         {isEditable && (
           <Col>
