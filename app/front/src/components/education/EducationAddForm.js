@@ -12,9 +12,7 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
-  const dateToString = (date) => {
-    return date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0')
-  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +22,7 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
     const user_id = portfoiloOwnerId;
     console.log(portfoiloOwnerId)
     // "academy/create" 엔드포인트로 post요청함.
-    await Api.post("education/create", {
+    await Api.post("education", {
       user_id:user_id,
       school,
       major,
@@ -34,7 +32,7 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
     });
 
     // "academylist/유저id" 엔드포인트로 get요청함.
-    const res = await Api.get("educationlist", user_id);
+    const res = await Api.get("educations", user_id);
     // academys를 response의 data로 세팅함.
     setEducations(res.data);
     console.log(res.data)
@@ -140,3 +138,4 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
 }
 
 export default EducationAddForm;
+
