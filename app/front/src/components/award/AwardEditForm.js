@@ -2,29 +2,31 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import DatePicker from "react-datepicker";
-import moment from "moment";
+// import moment from "moment";
 
-function changeFormat(date, format) {
-  if (moment(date).isValid()) {
-      return moment(date).format(format);
-  } else {
-      return null;
-  }
-}
+// function changeFormat(date, format) {
+//   if (moment(date).isValid()) {
+//       return moment(date).format(format);
+//   } else {
+//       return null;
+//   }
+// }
 
 function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
 
   const [title, setTitle] = useState(currentAward.title);
   const [description, setDescription] = useState(currentAward.description);
-  const [awardedDate, setAwardedDate] = useState(new Date(currentAward.awardDate));
+  const [awardDate, setAwardDate] = useState(new Date(currentAward.awardDate));
 
-  const object_id = currentAward.object_id
+  const user_id = currentAward.user_id;
+
+  const object_id = currentAward.object_id;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     
-    const awardDate = changeFormat(awardedDate, "yyyy-MM-DD");
+    // const awardDate = changeFormat(awardedDate, "yyyy-MM-DD");
 
     await Api.put(`award/${currentAward.object_id}`, {
       object_id,
@@ -63,7 +65,7 @@ function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
           수상일 <DatePicker 
           dateFormat = "yyyy.MM.dd"
           selected={awardedDate}
-          onChange={(date) => setAwardedDate(date)}
+          onChange={(date) => setAwardDate(date)}
           />
         </Col>
       </Form.Group>

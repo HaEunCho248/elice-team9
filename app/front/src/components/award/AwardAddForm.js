@@ -2,26 +2,26 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import DatePicker from "react-datepicker";
-import moment from "moment";
+// import moment from "moment";
 
-function changeFormat(date, format) {
-  if (moment(date).isValid()) {
-      return moment(date).format(format);
-  } else {
-      return null;
-  }
-}
+// function changeFormat(date, format) {
+//   if (moment(date).isValid()) {
+//       return moment(date).format(format);
+//   } else {
+//       return null;
+//   }
+// }
 
 function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [awardedDate, setAwardedDate] = useState(new Date());
+  const [awardDate, setAwardDate] = useState(new Date());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const awardDate = changeFormat(awardedDate, "yyyy-MM-DD");
+    // const awardDate = changeFormat(awardedDate, "yyyy-MM-DD");
     
     const user_id = portfolioOwnerId;
     
@@ -62,8 +62,8 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
         <Col>
           수상일 <DatePicker 
           dateFormat = "yyyy.MM.dd"
-          selected={awardedDate}
-          onChange={(date) => setAwardedDate(date)}
+          selected={awardDate}
+          onChange={(date) => setAwardDate(date)}
           />
         </Col>
       </Form.Group>
