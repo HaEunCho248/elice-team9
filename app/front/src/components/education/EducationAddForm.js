@@ -11,7 +11,6 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
   const [position, setPosition] = useState("재학중");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [ongoing, setOngoing] = useState(false)
   
   const today = new Date();
 
@@ -29,7 +28,6 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
       position,
       startDate,
       endDate,
-      ongoing
     });
 
     // "academylist/유저id" 엔드포인트로 get요청함.
@@ -63,28 +61,23 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
       <Form.Group as={Row} className="mt-3">
         
         <Col>
-          시작일 <DatePicker 
+        시작일 <DatePicker 
           selected={startDate}
-          onChange={(date) =>  {
-            if(date>today){
-              alert("시작일이 오늘보다 늦습니다.")
-            }else{setStartDate(date)}}}
+          onChange={(date) => {
+            if (date > today) {
+              alert("시작일이 오늘보다 늦습니다.");
+            } else {setStartDate(String(date));}
+            }}
           />
         </Col>
         <Col>
-          종료일<DatePicker 
+        종료일 (오늘 날짜 이후 입력 시, '현재 진행중'으로 표기) <DatePicker 
           selected={endDate}
           onChange={(date) => {
-            if(date < startDate){
-              alert("종료일이 시작일보다 빠릅니다.")
-              setOngoing(false)
-            }else if(date > today){
-              setOngoing(true)
-              setEndDate(date)
-            }else{
-              setOngoing(false)
-              setEndDate(date)}
-            }}
+            if (date < startDate){
+              alert("종료일이 시작일보다 빠릅니다.");
+            } else { setEndDate(String(date));}
+          }}
           />
         </Col>
       
@@ -152,3 +145,4 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
 }
 
 export default EducationAddForm;
+

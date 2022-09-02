@@ -11,7 +11,6 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
   const [position, setPosition] = useState(currentEducation.position);
   const [startDate, setStartDate] = useState(new Date(currentEducation.startDate));
   const [endDate, setEndDate] = useState(new Date(currentEducation.endDate));
-  const [ongoing, setOngoing] = useState(currentEducation.ongoing);
 
   const today = new Date();
   
@@ -31,7 +30,6 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
       position,
       startDate, 
       endDate,
-      ongoing
     });
 
     // "awardlist/유저id" 엔드포인트로 GET 요청함.
@@ -63,30 +61,24 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
         />
       </Form.Group>
       <Form.Group as={Row} className="mt-3">
-        
-        <Col>
+      <Col>
           시작일 <DatePicker 
           selected={startDate}
           onChange={(date) => {
-            if(date>today){
-              alert("시작일이 오늘보다 늦습니다.")
-            }else{setStartDate(date)}}}
+            if (date > today) {
+              alert("시작일이 오늘보다 늦습니다.");
+            } else {setStartDate(date);}
+          }}
           />
         </Col>
         <Col>
           종료일 <DatePicker 
           selected={endDate}
           onChange={(date) => {
-            if(date < startDate){
-              alert("종료일이 시작일보다 빠릅니다.")
-              setOngoing(false)
-            }else if(date > today){
-              setOngoing(true)
-              setEndDate(date)
-            }else{
-              setOngoing(false)
-              setEndDate(date)}
-            }}
+            if (date < startDate){
+              alert("종료일이 시작일보다 빠릅니다.");
+            } else { setEndDate(date);}
+          }}
           />
         </Col>
         
@@ -154,3 +146,5 @@ function EducationEditForm({ currentEducation, setEducations, setIsEditing }) {
 }
 
 export default EducationEditForm;
+
+
