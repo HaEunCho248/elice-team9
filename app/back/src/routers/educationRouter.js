@@ -50,6 +50,7 @@ educationRouter.get("/educations/:user_id", login_required, async function (req,
       if (currentEducationInfo.errorMessage) {
           throw new Error(currentEducationInfo.errorMessage);
       }
+      
     res.status(200).send(currentEducationInfo);  
     } catch (error) {
       next(error);
