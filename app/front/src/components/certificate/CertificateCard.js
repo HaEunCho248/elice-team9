@@ -1,8 +1,6 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
 function CertificateCard({ certificate, isEditable, setIsEditing, setCertificates }) {
-  // let when_date = certificate.acquisition_date;
-  // const acquisition_dateM = when_date.toLocaleDateString("en-US");
   return (
     <Card.Text>
       <Row className="align-items-center">
