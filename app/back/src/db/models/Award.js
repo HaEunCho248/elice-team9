@@ -17,7 +17,7 @@ class Award {
                 user_id: data.user_id,
                 title: data.title,
                 description: data.description,
-                awardDate: data.awardDate
+                awardDate: String(data.awardDate).substring(0, 10)
             };
         });
         
