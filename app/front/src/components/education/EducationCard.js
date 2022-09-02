@@ -2,6 +2,8 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
 
 function EducationCard({ education, isEditable, setIsEditing, setEducations}) {
+  const today = new Date(); 
+  const endDate = new Date(education.endDate);
 
   const delHandler = async (e) => {
     e.preventDefault();
@@ -25,9 +27,11 @@ function EducationCard({ education, isEditable, setIsEditing, setEducations}) {
           <br />
           <span className="text-muted">{education.startDate}</span>
           &nbsp; ~&nbsp;
-          {education.ongoing ? (
-          <span className="text-muted"> </span>
-          ): (<span className="text-muted"> {education.endDate}</span>)}
+          { // endDate 값이 오늘보다 늦을 시, 현재 진행중으로 표기
+           today > endDate ? (                              
+           <span className="text-muted"> {education.endDate}</span> 
+           ) : (
+           <span className="text-muted"> 현재 진행중 </span>)}
           
         </Col>
         {isEditable && (
