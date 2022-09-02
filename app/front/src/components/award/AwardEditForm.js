@@ -2,15 +2,6 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import DatePicker from "react-datepicker";
-// import moment from "moment";
-
-// function changeFormat(date, format) {
-//   if (moment(date).isValid()) {
-//       return moment(date).format(format);
-//   } else {
-//       return null;
-//   }
-// }
 
 function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
 
@@ -25,8 +16,6 @@ function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    
-    // const awardDate = changeFormat(awardedDate, "yyyy-MM-DD");
 
     await Api.put(`award/${currentAward.object_id}`, {
       object_id,
@@ -35,7 +24,7 @@ function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
       awardDate,
     });
 
-    const res = await Api.get("awards", currentAward.user_id);
+    const res = await Api.get("awards", user_id);
     setAwards(res.data);
     setIsEditing(false);
   };

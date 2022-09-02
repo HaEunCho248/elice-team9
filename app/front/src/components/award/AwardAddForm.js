@@ -2,15 +2,6 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import DatePicker from "react-datepicker";
-// import moment from "moment";
-
-// function changeFormat(date, format) {
-//   if (moment(date).isValid()) {
-//       return moment(date).format(format);
-//   } else {
-//       return null;
-//   }
-// }
 
 function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
   const [title, setTitle] = useState("");
@@ -21,8 +12,6 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
     e.preventDefault();
     e.stopPropagation();
 
-    // const awardDate = changeFormat(awardedDate, "yyyy-MM-DD");
-    
     const user_id = portfolioOwnerId;
     
     await Api.post("award", {

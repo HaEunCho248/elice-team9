@@ -14,6 +14,8 @@ awardRouter.post('/award', login_required, async function(req, res, next) {
         const title = req.body.title;
         const description = req.body.description;
         const awardDate = req.body.awardDate;
+        console.log(typeof awardDate)
+        console.log(awardDate)
         const newAward = await awardService.addAward({
             user_id,
             title,
