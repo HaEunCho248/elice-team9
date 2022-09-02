@@ -1,20 +1,17 @@
 import { Project } from "../db";
 
 class projectService {
-    // 프로젝트 생성
+    // Project 생성
     static async addProject({ user_id, projectData }) {
 
-        // const projects = await Project.findAll({ user_id });
-        // if(projects.length > 0) {
-        //     const errorMessage = projects.map((project) => {
-        //         if(project.title === projectData.title) {
-        //             return "같은 이름의 프로젝트가 있습니다.";
-        //         }
-        //     });
-        //     if(errorMessage[0] != undefined) {
-        //         return errorMessage;
-        //     }
-        // }
+        const projects = await Project.findAll({ user_id });
+        if(projects.length > 0) {
+            projects.map((project) => {
+                if(project.title === projectData.title) {
+                    return projects.errorMessage;
+                }
+            });
+        }
         
         const newProject = { user_id, ...projectData };
         const createProject = await Project.create({ newProject});
@@ -22,14 +19,14 @@ class projectService {
         return createProject;
     }
 
-    // 프로젝트 리스트 가져오기
+    // Project 목록 가져오기
     static async getProjects({ user_id }) {
         const projects = await Project.findAll({ user_id });
 
         return projects;
     }
 
-    // 프로젝트 편집
+    // 특정 Project 수정
     static async setProject({ object_id, toUpdate }) {
         let updateProject = null;
         
@@ -57,7 +54,7 @@ class projectService {
         return updateProject;
     }
 
-    // 프로젝트 삭제
+    // 특정 Project 삭제
     static async delProject({ object_id }) {
         const deleteProject = await Project.delete({ object_id });
 
