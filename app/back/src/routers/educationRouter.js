@@ -67,7 +67,6 @@ educationRouter.put("/education/:object_id", login_required, async (req, res, ne
       const endDate = req.body.endDate ?? null;
       const ongoing = req.body.ongoing ?? null;
       const toUpdate = { school, major, position, startDate, endDate, ongoing };
-
       const updatedEducation = await educationService.setEducation({ object_id, toUpdate });
        if(updatedEducation.errorMessage){
         throw new Error(updatedEducation.errorMessage);
