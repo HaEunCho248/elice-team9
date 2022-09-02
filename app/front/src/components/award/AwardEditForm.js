@@ -64,7 +64,7 @@ function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
         <Col>
           수상일 <DatePicker 
           dateFormat = "yyyy.MM.dd"
-          selected={awardedDate}
+          selected={awardDate}
           onChange={(date) => setAwardDate(date)}
           />
         </Col>

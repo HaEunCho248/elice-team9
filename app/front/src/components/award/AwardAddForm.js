@@ -35,7 +35,7 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
     const res = await Api.get("awards", user_id);
     setAwards(res.data);
     setIsAdding(false);
-    setAwardedDate(res.awardDate);
+    setAwardDate(res.awardDate);
   };
 
   return (
