@@ -12,6 +12,8 @@ function ProjectEditForm({currentProject, setProjects, setIsEditing }) {
   const [startDate, setStartDate] = useState(new Date(currentProject.startDate));
   const [endDate, setEndDate] = useState(new Date(currentProject.endDate));
 
+  const today = new Date();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -63,13 +65,21 @@ function ProjectEditForm({currentProject, setProjects, setIsEditing }) {
         <Col>
           시작일 <DatePicker 
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={(date) => {
+            if (date > today) {
+              alert("시작일이 오늘보다 늦습니다.");
+            } else {setStartDate(date);}
+          }}
           />
         </Col>
         <Col>
           종료일 <DatePicker 
           selected={endDate}
-          onChange={(date) => setEndDate(date)}
+          onChange={(date) => {
+            if (date < startDate){
+              alert("종료일이 시작일보다 빠릅니다.");
+            } else { setEndDate(date);}
+          }}
           />
         </Col>
         
