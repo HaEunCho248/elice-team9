@@ -15,7 +15,6 @@ class Certificate {
     // const certificates = await CertificateModel.find({ user_id });
     const filter = { user_id: user_id };
     const Certificates = await CertificateModel.find(filter);
-    
     const certificate_list = Certificates.map((data) => {  
       // let StringAcquisitionDate = ""+data.acquisitionDate; 
       return {
