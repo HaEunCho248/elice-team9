@@ -5,8 +5,8 @@ import { projectService } from "../services/projectService";
 
 const projectRouter = Router();
 
-// 프로젝트 등록
-projectRouter.post("/project", async (req, res, next) => {
+// Project 등록
+projectRouter.post("/project", login_required, async (req, res, next) => {
     try {
         if(is.emptyObject(req.body)) {
             throw new Error("header의 Content-Tpye을 application/json으로 설정해주세요");
@@ -31,13 +31,14 @@ projectRouter.post("/project", async (req, res, next) => {
         if(newProject.errorMessage) {
             throw new Error(newProject.errorMessage);
         }
+
         res.status(201).json(newProject);
     } catch(err) {
         next(err);
     }
 });
 
-// 프로젝트 목록 가져오기
+// Project 목록 가져오기
 projectRouter.get("/projects/:user_id", login_required, async (req, res, next) => {
     try {
             const user_id = req.params.user_id;
@@ -52,7 +53,7 @@ projectRouter.get("/projects/:user_id", login_required, async (req, res, next) =
     }
 })
 
-// 특정 프로젝트 편집
+// 특정 Project 수정
 projectRouter.put("/project/:object_id", login_required, async (req, res, next) => {
     try {
         const object_id = req.params.object_id;
@@ -61,7 +62,6 @@ projectRouter.put("/project/:object_id", login_required, async (req, res, next) 
         const startDate = req.body.startDate ?? null;
         const endDate = req.body.endDate ?? null;
         const toUpdate = { title, description, startDate, endDate };
-
         const updateProject = await projectService.setProject({ object_id, toUpdate });
 
         if(updateProject.errorMessage) {
@@ -74,14 +74,16 @@ projectRouter.put("/project/:object_id", login_required, async (req, res, next) 
     }
 })
 
-// 특정 프로젝트 삭제
+// 특정 Project 삭제
 projectRouter.delete("/projects/:object_id", login_required, async (req, res, next) => {
     try {
         const object_id = req.params.object_id;
         const deleteProject = await projectService.delProject({ object_id });
+
         if (deleteProject.errorMessage) {
             throw new Error(deleteProject.errorMessage);
         }
+
         res.status(200).json(deleteProject);
     } catch(err) {
         next(err);

@@ -9,7 +9,7 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState(currentCertificate.description);
   //useState로 acquisitionDate 상태를 생성함.
-  const [acquisitionDate, setAcquisitionDate] = useState(new Date());
+  const [acquisitionDate, setAcquisitionDate] = useState(new Date(currentCertificate.acquisitionDate));
 
   const handleSubmit = async (e) => {
     e.preventDefault();

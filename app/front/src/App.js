@@ -9,6 +9,7 @@ import LoginForm from "./components/user/LoginForm";
 import Network from "./components/user/Network";
 import RegisterForm from "./components/user/RegisterForm";
 import Portfolio from "./components/Portfolio";
+import ProjectNewPage from "./components/project/ProjectNewPage";
 
 
 export const UserStateContext = createContext(null);
@@ -65,6 +66,8 @@ function App() {
             <Route path="/users/:userId" element={<Portfolio />} />
             <Route path="/network" element={<Network />} />
             <Route path="*" element={<Portfolio />} />
+            {/* 프로젝트 상세 페이지 추가 */}
+            <Route path="/newPage" element={<ProjectNewPage />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>

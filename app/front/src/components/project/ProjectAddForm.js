@@ -4,13 +4,14 @@ import * as Api from "../../api";
 import DatePicker from "react-datepicker";
 
 function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
-  
   //useState로 title 상태를 생성함.
   const [title, setTitle] = useState("");
   //useState로 description 상태를 생성함.
   const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);   // 초기값 오늘 > null 로 바꿈
+  const [endDate, setEndDate] = useState(null);
+
+  const today = new Date();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +20,7 @@ function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
     // portfolioOwnerId를 user_id 변수에 할당함.
     const user_id = portfolioOwnerId;
 
-    // "project/create" 엔드포인트로 post요청함.
+    // "project" 엔드포인트로 post요청함.
     await Api.post("project", {
       user_id: portfolioOwnerId,
       title,
@@ -28,7 +29,8 @@ function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
       endDate,
     });
 
-    // "projectlist/유저id" 엔드포인트로 get요청함.
+
+    // "projects/유저id" 엔드포인트로 get요청함.
     const res = await Api.get("projects", user_id);
     // projects를 response의 data로 세팅함.
     setProjects(res.data);
@@ -62,15 +64,28 @@ function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
         <Col>
           시작일 <DatePicker 
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={(date) => {
+            if (date > today) {
+              alert("시작일이 오늘보다 늦습니다.");
+            } else {setStartDate(date);}
+            }}
           />
         </Col>
         <Col>
-          종료일 <DatePicker 
+          종료일 (오늘 날짜 이후 입력 시, '현재 진행중'으로 표기) <DatePicker 
           selected={endDate}
-          onChange={(date) => setEndDate(date)}
+          onChange={(date) => {
+            if (date < startDate){
+              alert("종료일이 시작일보다 빠릅니다.");
+            } else { setEndDate(date);}
+          }}
           />
         </Col>
+
+        {/* 렌더링 너무 많아서 에러
+        { differenceInDays(startDate, endDate) > 0 ?
+          setCheckDiffInDate(false) : setCheckDiffInDate(true)
+        } */}  
         
       </Form.Group>
 

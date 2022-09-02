@@ -1,27 +1,41 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import DatePicker from "react-datepicker";
+import moment from "moment";
+
+function changeFormat(date, format) {
+  if (moment(date).isValid()) {
+      return moment(date).format(format);
+  } else {
+      return null;
+  }
+}
 
 function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [awardedDate, setAwardedDate] = useState(new Date());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
+    const awardDate = changeFormat(awardedDate, "yyyy-MM-DD");
+    
     const user_id = portfolioOwnerId;
-    console.log(portfolioOwnerId);
     
     await Api.post("award", {
       user_id: portfolioOwnerId,
       title,
       description,
+      awardDate,
     });
 
     const res = await Api.get("awards", user_id);
     setAwards(res.data);
     setIsAdding(false);
+    setAwardedDate(res.awardDate);
   };
 
   return (
@@ -42,6 +56,16 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+      </Form.Group>
+
+      <Form.Group as={Row} className="mt-3">
+        <Col>
+          수상일 <DatePicker 
+          dateFormat = "yyyy.MM.dd"
+          selected={awardedDate}
+          onChange={(date) => setAwardedDate(date)}
+          />
+        </Col>
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center">

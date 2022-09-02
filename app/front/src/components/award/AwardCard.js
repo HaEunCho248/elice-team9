@@ -2,11 +2,8 @@ import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
 
-// 삭제기능 만들어야 함. 이건 실패작 어떻게 해야할지 고민고민
-// 결국 title or id는 탓깃이 된 하나만 보내줘야 하기 때문에
-// 프론트에서 설정하여 back 보내줘야 할 것 같다는 생각이 듭니다.
 function AwardCard({ award, isEditable, setIsEditing, setAwards }) {
-  // 계정이 확인 되면 편집창과 삭제
+
   return (
     <Card.Text>
       <Row className="align-items-center">
@@ -14,6 +11,8 @@ function AwardCard({ award, isEditable, setIsEditing, setAwards }) {
           <span>{award.title}</span>
           <br />
           <span className="text-muted">{award.description}</span>
+          <br />
+          <span className="text-muted">{award.awardDate}</span>
         </Col>
         {isEditable && (
           <Col xs lg="1">

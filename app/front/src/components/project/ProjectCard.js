@@ -1,7 +1,12 @@
+// import {useState} from 'react';
 import { Card, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
 
-function ProjectCard({ project, isEditable, setIsEditing, setProjects }) {
+function ProjectCard({ project, isEditable, setIsEditing, setProjects}) {
+  
+  const today = new Date(); 
+  const endDate = new Date(project.endDate);
+
   return (
     <Card.Text>
       <Row className="align-items-center">
@@ -10,8 +15,12 @@ function ProjectCard({ project, isEditable, setIsEditing, setProjects }) {
           <br />
           <span className="text-muted">{project.description}</span>
           <br />
-          <span className="text-muted">{project.startDate}</span>
-           ~ <span className="text-muted">{project.endDate}</span>
+          <span className="text-muted">{project.startDate}</span> ~ 
+          { // endDate 값이 오늘보다 늦을 시, 현재 진행중으로 표기
+           today > endDate ? (                              
+           <span className="text-muted"> {project.endDate}</span> 
+           ) : (
+           <span className="text-muted"> 현재 진행중 </span>)}
         </Col>
         {isEditable && (
           <Col xs lg="1">
@@ -32,9 +41,7 @@ function ProjectCard({ project, isEditable, setIsEditing, setProjects }) {
               e.stopPropagation();
               
               const user_id = project.user_id;
-              // console.log(user_id);  //디버깅
-              const object_id = project.object_id;  // _id >> object_id 
-              // console.log(object_id) // 디버깅 
+              const object_id = project.object_id;  
               await Api.delete('projects', object_id);
               const res = await Api.get("projects", user_id);
               setProjects(res.data);
@@ -44,6 +51,7 @@ function ProjectCard({ project, isEditable, setIsEditing, setProjects }) {
           >
             삭제
           </Button>
+          
         </Col>
         )}
       </Row>
