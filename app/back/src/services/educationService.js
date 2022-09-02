@@ -48,7 +48,7 @@ class educationService {
   }
     if(toUpdate.ongoing) {
       const fieldToUpdate = "ongoing";
-      const newValue = toUpdate.endDate
+      const newValue = toUpdate.ongoing
       education= await Education.update({ object_id, fieldToUpdate, newValue });
   }
 
