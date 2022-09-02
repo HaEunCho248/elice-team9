@@ -50,6 +50,10 @@ class educationService {
       const fieldToUpdate = "ongoing";
       const newValue = toUpdate.ongoing
       education= await Education.update({ object_id, fieldToUpdate, newValue });
+  } else if(toUpdate.ongoing === false) {
+      const fieldToUpdate = "ongoing";
+      const newValue = toUpdate.ongoing
+      education= await Education.update({ object_id, fieldToUpdate, newValue });
   }
 
     return education;
