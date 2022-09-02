@@ -5,6 +5,7 @@ import ProjectEditForm from "./ProjectEditForm";
 function Project({ project, setProjects, isEditable }) {
   //useState로 isEditing 상태를 생성함.
   const [isEditing, setIsEditing] = useState(false);
+
   return (
     <>
       {isEditing ? (
@@ -18,7 +19,7 @@ function Project({ project, setProjects, isEditable }) {
           project={project}
           isEditable={isEditable}
           setIsEditing={setIsEditing}
-          setProjects = {setProjects}  // 삭제 기능 구현 위해 추가
+          setProjects = {setProjects}  // 삭제 기능 구현
         />
       )}
     </>
