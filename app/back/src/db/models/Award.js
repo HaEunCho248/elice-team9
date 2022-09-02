@@ -17,7 +17,7 @@ class Award {
                 user_id: data.user_id,
                 title: data.title,
                 description: data.description,
-                awardDate: data.awardDate
+                awardDate: data.awardDate.substr(0, 10)
             };
         });
         return award_list;

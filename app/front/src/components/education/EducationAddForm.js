@@ -66,7 +66,7 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
           onChange={(date) => {
             if (date > today) {
               alert("시작일이 오늘보다 늦습니다.");
-            } else {setStartDate(String(date));}
+            } else {setStartDate(date)}
             }}
           />
         </Col>
@@ -76,7 +76,7 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
           onChange={(date) => {
             if (date < startDate){
               alert("종료일이 시작일보다 빠릅니다.");
-            } else { setEndDate(String(date));}
+            } else { setEndDate(date)}
           }}
           />
         </Col>
