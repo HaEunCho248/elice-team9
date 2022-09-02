@@ -20,6 +20,8 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
 
     // portfolioOwnerId를 user_id 변수에 할당함.
     const user_id = portfoiloOwnerId;
+    console.log(typeof startDate)
+    console.log(typeof endDate)
     // "academy/create" 엔드포인트로 post요청함.
     await Api.post("education", {
       user_id:user_id,

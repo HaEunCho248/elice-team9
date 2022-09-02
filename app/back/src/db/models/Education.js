@@ -16,8 +16,8 @@ class Education {
         school: data.school,
         major: data.major,
         position: data.position,
-        startDate: String(data.startDate).substr(0, 10),
-        endDate: String(data.endDate).substr(0, 10),
+        startDate: data.startDate.substr(0, 10),
+        endDate: data.endDate.substr(0, 10),
         ongoing: data.ongoing
       }
     })

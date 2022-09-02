@@ -20,7 +20,6 @@ class Award {
                 awardDate: data.awardDate.substr(0, 10)
             };
         });
-        console.log(award_list)
         return award_list;
     }
 
