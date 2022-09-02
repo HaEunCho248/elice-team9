@@ -29,7 +29,8 @@ class Education {
     const filter = { _id:object_id };
     const update = { [fieldToUpdate]: newValue };
     const option = { returnOriginal: false };
-
+    console.log(fieldToUpdate)
+    console.log(newValue)
     const updatedEducation = await EducationModel.findOneAndUpdate(
       filter,
       update,
