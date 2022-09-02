@@ -24,7 +24,7 @@ awardRouter.post('/award', login_required, async function(req, res, next) {
         if (newAward.errorMessage) {
             throw new Error(newAward.errorMessage);
         }
-        
+
         res.status(201).json(newAward);
     } catch(error) {
         next(error);
@@ -41,6 +41,7 @@ awardRouter.get("/awards/:user_id", login_required, async function (req, res, ne
             if (currentAwardInfo.errorMessage) {
                 throw new Error(currentAwardInfo.errorMessage);
             }
+            
             res.status(200).send(currentAwardInfo);  
         }
       } catch (error) {
@@ -62,7 +63,7 @@ awardRouter.put('/award/:object_id', login_required, async function(req, res, ne
         if(updatedAward.errorMessage) {
             throw new Error(updatedAward.errorMessage);
         }
-
+        
         res.status(200).json(updatedAward);
     } catch(error) {
         next(error);
@@ -78,7 +79,7 @@ awardRouter.delete('/awards/:object_id', login_required, async function(req, res
         if (deleteAward.errorMessage) {
             throw new Error(deleteAward.errorMessage);
         }
-
+        
         res.status(200).json(deleteAward);
     } catch(error) {
         next(error);

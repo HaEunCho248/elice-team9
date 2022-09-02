@@ -11,14 +11,14 @@ function Awards({ portfolioOwnerId, isEditable }) {
   useEffect(() => {
     Api.get("awards", portfolioOwnerId).then((res) => setAwards(res.data));
   }, [portfolioOwnerId]);
-
+  
   return (
     <Card>
       <Card.Body>
         <Card.Title>수상이력</Card.Title>
         {awards.map((award) => (
           <Award
-            key={award.user_id}
+            key={award.id}
             award={award}
             setAwards={setAwards}
             isEditable={isEditable}

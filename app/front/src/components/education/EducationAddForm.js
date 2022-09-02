@@ -11,7 +11,7 @@ function EducationAddForm({ portfoiloOwnerId, setEducations, setIsAdding }) {
   const [position, setPosition] = useState("재학중");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  
+
   const today = new Date();
 
   const handleSubmit = async (e) => {

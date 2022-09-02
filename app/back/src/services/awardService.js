@@ -4,7 +4,6 @@ class awardService {
     // Award 등록
     static async addAward({ user_id, title, description, awardDate }) {
         const users = await Award.findAll({ user_id });
-        
         if(users.length > 0) {
             const errorMessage = users.map(user => {
                 if(user.title === title) {
