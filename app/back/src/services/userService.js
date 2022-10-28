@@ -90,30 +90,45 @@ class userAuthService {
     }
 
     // 업데이트 대상에 name이 있다면, 즉 name 값이 null 이 아니라면 업데이트 진행
+    if(toUpdate.isLike) {
+      const fieldToUpdate = "isLike";
+      const newValue = toUpdate.isLike;
+      user = await User.update({ user_id, fieldToUpdate, newValue });
+    } else if(toUpdate.isLike === false) {
+      const fieldToUpdate = "isLike";
+      const newValue = toUpdate.isLike;
+      user = await User.update({ user_id, fieldToUpdate, newValue });
+    }
+    if (toUpdate.isLike) {
+      const fieldToUpdate = "likeNumber";
+      const newValue = user.likeNumber + 1;
+      user = await User.update({ user_id, fieldToUpdate, newValue });
+    } else if(toUpdate.isLike === false) {
+      const fieldToUpdate = "likeNumber";
+      const newValue = user.likeNumber - 1;
+      user = await User.update({ user_id, fieldToUpdate, newValue });
+    }
     if (toUpdate.name) {
       const fieldToUpdate = "name";
       const newValue = toUpdate.name;
       user = await User.update({ user_id, fieldToUpdate, newValue });
     }
-
     if (toUpdate.email) {
       const fieldToUpdate = "email";
       const newValue = toUpdate.email;
       user = await User.update({ user_id, fieldToUpdate, newValue });
     }
-
     if (toUpdate.password) {
       const fieldToUpdate = "password";
       const newValue = bcrypt.hash(toUpdate.password, 10);
       user = await User.update({ user_id, fieldToUpdate, newValue });
     }
-
     if (toUpdate.description) {
       const fieldToUpdate = "description";
       const newValue = toUpdate.description;
       user = await User.update({ user_id, fieldToUpdate, newValue });
     }
-
+    
     return user;
   }
 
