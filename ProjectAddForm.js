@@ -77,7 +77,8 @@ function ProjectAddForm({ portfolioOwnerId, setProjects, setIsAdding }) {
           onChange={(date) => {
             if (date < startDate){
               alert("종료일이 시작일보다 빠릅니다.");
-            } else { setEndDate(date);}
+            } else {
+            setEndDate(date)}
           }}
           />
         </Col>

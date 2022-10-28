@@ -4,13 +4,15 @@ import * as Api from "../../api";
 import DatePicker from "react-datepicker";
 
 function ProjectEditForm({currentProject, setProjects, setIsEditing }) {
-  // console.log(currentProject); //디버깅 코드 :ObjectId,_id, userid title, description, start, end (user_id없음)
-  //useState로 title 상태를 생성함.
+  // useState로 title 상태를 생성함.
   const [title, setTitle] = useState(currentProject.title);
-  //useState로 description 상태를 생성함.
+  // useState로 description 상태를 생성함.
   const [description, setDescription] = useState(currentProject.description);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  // useState로 startDate, endDate 상태를 생성함.
+  const [startDate, setStartDate] = useState(new Date(currentProject.startDate));
+  const [endDate, setEndDate] = useState(new Date(currentProject.endDate));
+
+  const today = new Date();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,10 +21,8 @@ function ProjectEditForm({currentProject, setProjects, setIsEditing }) {
     // currentProject의 user_id를 user_id 변수에 할당함.
     const object_id = currentProject.object_id;
     const user_id = currentProject.user_id;
-    console.log(object_id);
-    // console.log(currentProject._id);
 
-    // "projects/수상 id" 엔드포인트로 PUT 요청함.
+    // "project/object_id" 엔드포인트로 PUT 요청함.
     await Api.put(`project/${currentProject.object_id}`, {
       object_id,
       title,
@@ -31,13 +31,14 @@ function ProjectEditForm({currentProject, setProjects, setIsEditing }) {
       endDate,
     });
 
-    // "projectlist/유저id" 엔드포인트로 GET 요청함.
-    const res = await Api.get("projectlist", user_id);
+    // "project/유저id" 엔드포인트로 GET 요청함.
+    const res = await Api.get("projects", user_id);
     // projects를 response의 data로 세팅함.
     setProjects(res.data);
     // 편집 과정이 끝났으므로, isEditing을 false로 세팅함.
     setIsEditing(false);
   };
+
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -64,13 +65,21 @@ function ProjectEditForm({currentProject, setProjects, setIsEditing }) {
         <Col>
           시작일 <DatePicker 
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={(date) => {
+            if (date > today) {
+              alert("시작일이 오늘보다 늦습니다.");
+            } else {setStartDate(date);}
+          }}
           />
         </Col>
         <Col>
           종료일 <DatePicker 
           selected={endDate}
-          onChange={(date) => setEndDate(date)}
+          onChange={(date) => {
+            if (date < startDate){
+              alert("종료일이 시작일보다 빠릅니다.");
+            } else { setEndDate(date);}
+          }}
           />
         </Col>
         

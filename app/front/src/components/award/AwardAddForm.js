@@ -12,18 +12,21 @@ function changeFormat(date, format) { //moment 변환을 함수로 미리 빼 �
   }
 }
 
+
 function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [awardedDate, setAwardedDate] = useState(new Date());
   const [awardImg, setAwardImg] = useState(null);
+  const [awardDate, setAwardDate] = useState(new Date());
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const awardDate = changeFormat(awardedDate, "yyyy-MM-DD");  // 미리 만든 moment 함수를 적용
 
+    const awardDate = changeFormat(awardedDate, "yyyy-MM-DD");  // 미리 만든 moment 함수를 적용
     const user_id = portfolioOwnerId;
 
     let formData = new FormData(); //formdata에 다른 정보도 넣어서 보내는 방향으로
@@ -52,7 +55,7 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
     const res = await Api.get("awards", user_id);
     setAwards(res.data);
     setIsAdding(false);
-    setAwardedDate(res.awardDate);
+    setAwardDate(res.awardDate);
   };
 
   return (
@@ -80,6 +83,9 @@ function AwardAddForm({ portfolioOwnerId, setAwards, setIsAdding }) {
           수상일 <DatePicker 
           selected={awardedDate}
           onChange={(date) => setAwardedDate(date)}
+          dateFormat = "yyyy.MM.dd"
+          selected={awardDate}
+          onChange={(date) => setAwardDate(date)}
           />
         </Col>
       </Form.Group>

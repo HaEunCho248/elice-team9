@@ -14,7 +14,7 @@ function Certificates({ portfolioOwnerId, isEditable }) {
 
   useEffect(() => {
     // "Certificatelist/유저id"로 GET 요청하고, response의 data로 Certificates를 세팅함.
-    Api.get("certificatelist", portfolioOwnerId).then((res) => setCertificates(res.data));
+    Api.get("certificates", portfolioOwnerId).then((res) => setCertificates(res.data));
   }, [portfolioOwnerId]);
 
   return (

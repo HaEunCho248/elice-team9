@@ -2,29 +2,20 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import DatePicker from "react-datepicker";
-import moment from "moment";
-
-function changeFormat(date, format) { //moment 변환을 함수로 미리 빼 두어서 사용.
-  if (moment(date).isValid()) {
-      return moment(date).format(format);
-  } else {
-      return null;
-  }
-}
 
 function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
 
   const [title, setTitle] = useState(currentAward.title);
   const [description, setDescription] = useState(currentAward.description);
-  const [awardedDate, setAwardedDate] = useState(new Date(currentAward.awardDate));
+  const [awardDate, setAwardDate] = useState(new Date(currentAward.awardDate));
 
-  const object_id = currentAward.object_id
+  const user_id = currentAward.user_id;
+
+  const object_id = currentAward.object_id;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    
-    const awardDate = changeFormat(awardedDate, "yyyy-MM-DD");  // 미리 만든 moment 함수를 적용
 
     await Api.put(`award/${currentAward.object_id}`, {
       object_id,
@@ -33,7 +24,7 @@ function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
       awardDate,
     });
 
-    const res = await Api.get("awards", currentAward.user_id);
+    const res = await Api.get("awards", user_id);
     setAwards(res.data);
     setIsEditing(false);
   };
@@ -62,8 +53,8 @@ function AwardEditForm({ currentAward, setAwards, setIsEditing }) {
         <Col>
           수상일 <DatePicker 
           dateFormat = "yyyy.MM.dd"
-          selected={awardedDate}
-          onChange={(date) => setAwardedDate(date)}
+          selected={awardDate}
+          onChange={(date) => setAwardDate(date)}
           />
         </Col>
       </Form.Group>

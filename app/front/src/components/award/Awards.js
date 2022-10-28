@@ -8,12 +8,10 @@ function Awards({ portfolioOwnerId, isEditable }) {
   const [awards, setAwards] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
-
-  // 수상이력 데이터 목록을 /awards 로 받아오기
   useEffect(() => {
     Api.get("awards", portfolioOwnerId).then((res) => setAwards(res.data));
   }, [portfolioOwnerId]);
-
+  
   return (
     <Card>
       <Card.Body>

@@ -9,15 +9,17 @@ function Certificate ({ certificate , setCertificates, isEditable }) {
     <>
       {isEditing ? (
         <CertificateEditForm
-          currentCertificate ={Certificate }
+          currentCertificate ={certificate}
           setCertificates={setCertificates}
           setIsEditing={setIsEditing}
         />
       ) : (
         <CertificateCard
-          certificate ={certificate }
-          isEditable={isEditable}
+          certificate ={certificate}
+          setCertificates = {setCertificates}// 삭제 기능 구현
           setIsEditing={setIsEditing}
+          isEditable={isEditable}
+  
         />
       )}
     </>

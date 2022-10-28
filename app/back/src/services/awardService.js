@@ -1,10 +1,9 @@
 import { Award } from "../db";
 
 class awardService {
-    // award 등록
+    // Award 등록
     static async addAward({ user_id, title, description, awardDate }) {
         const users = await Award.findAll({ user_id });
-        
         if(users.length > 0) {
             const errorMessage = users.map(user => {
                 if(user.title === title) {
@@ -22,21 +21,14 @@ class awardService {
         return createNewAward;
     }
 
-    // 특정 award 가져오기
-    static async getAward({ object_id }) {
-        const user = await Award.findById({ object_id });
-
-        return user;
-    }
-
-    // award 리스트 가져오기
+    // Award 목록 가져오기
     static async getAwards({ user_id }) {
         const users = await Award.findAll({ user_id });
 
         return users;
     }
 
-    // award 편집
+    // 특정 Award 수정
     static async setAward({ object_id, toUpdate }) {
         let award = null;
 
@@ -59,7 +51,7 @@ class awardService {
         return award;
     }
     
-    // award 삭제
+    // 특정 Award 삭제
     static async delAward({ object_id }) {
         const deleteAward = await Award.delete({ object_id });
 
