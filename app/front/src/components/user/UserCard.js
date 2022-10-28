@@ -1,5 +1,6 @@
  import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
+import LikeButton from '../like/LikeButton'
 
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
@@ -17,6 +18,8 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         <Card.Title>{user?.name}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text>{user?.description}</Card.Text>
+
+       <LikeButton userId={user?.id}/> 
 
         {isEditable && (
           <Col>

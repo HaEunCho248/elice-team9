@@ -1,0 +1,17 @@
+.button {
+    cursor: pointer;
+    transition: transform 300ms ease;
+    font-size: 30px;
+}
+/* 마우스 hover시 크기가 10% 더 커지게 함 */
+.button:hover{
+    transform: scale(1.1);
+}
+
+.red {
+    color: red;
+}
+
+h6{
+    height: 2px;
+}
