@@ -6,6 +6,8 @@ import { educationRouter } from "./routers/educationRouter";
 import { projectRouter } from "./routers/projectRouter";
 import { certificateRouter } from "./routers/certificateRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
+import multer from 'multer'; // multer 추가
+
 
 const app = express();
 
@@ -18,6 +20,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(multer({ dest:'images' }).single('formData')) // multer 추가
 
 // router, service 구현 (userAuthRouter는 맨 위에 있어야 함.)
 app.use('/', userAuthRouter);

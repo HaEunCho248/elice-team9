@@ -3,22 +3,36 @@ import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { awardService } from "../services/awardService";
 
+
 const awardRouter = Router();
-// Award 등록
+
 awardRouter.post('/award', login_required, async function(req, res, next) {
+    console.log(`req:`, req);
     try {
+
+        // console.log(`awardRouter 확인:`, req.file);  // req 찾기
+
         if(is.emptyObject(req.body)) {
             throw new Error("headers의 Content-Type을 application/json으로 설정해주세요");
         }
         const user_id = req.body.user_id;
         const title = req.body.title;
         const description = req.body.description;
+
         const awardDate = req.body.awardDate;
+        const formData = req.body.formData;
+        const awardImg = req.file;
+
+
+        console.log(`awardRouter확인:`,awardImg);
+        
         const newAward = await awardService.addAward({
             user_id,
             title,
             description,
-            awardDate
+            awardDate,
+            formData,
+            awardImg,
         });
 
         if (newAward.errorMessage) {

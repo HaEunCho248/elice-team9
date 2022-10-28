@@ -21,6 +21,18 @@ async function get(endpoint, params = "") {
 async function post(endpoint, data) {
 
 
+  let entries = data.formData.entries();
+  for (const pair of entries) {
+    console.log(`api formdata 확인:`, pair[0]+ ', ' + pair[1])};  //multer 확인
+    
+ 
+  const bodyData = data;
+  console.log(`%cPOST 요청: ${serverUrl + endpoint}`, "color: #296aba;");
+  console.log(`%cPOST 요청 데이터: ${bodyData}`, "color: #296aba;");
+  console.log(`bodyData 확인:`, bodyData)
+
+
+
   const bodyData = JSON.stringify(data);
   console.log(`%cPOST 요청: ${serverUrl + endpoint}`, "color: #296aba;");
   console.log(`%cPOST 요청 데이터: ${bodyData}`, "color: #296aba;");
@@ -28,6 +40,7 @@ async function post(endpoint, data) {
 
   return axios.post(serverUrl + endpoint, bodyData, {
     headers: {
+      // "Content-Type": "multipart/form-data",
       "Content-Type": "application/json",
       Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
     },
